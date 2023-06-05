@@ -1,9 +1,10 @@
 import { View, Text } from "react-native";
-
-export default function MyCourseScreen() {
+import TopNavbar from './myCourse/config/router';
+import { TabStack } from "./myCourse/config/router";
+export default function MyCourse() {
     return (
       <View>
-        <Text>My Course</Text>
+        <TopNavbar/>
       </View>
     );
   }
