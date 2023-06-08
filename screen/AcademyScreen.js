@@ -11,8 +11,8 @@ const special =[
 ]
 const recmaster =[
   {uri: require("../assets/images/FreeCourse.png"), nama:'Free Course', desc:'+50 course GRATIS untuk kamu memulai Belajar', screen:'free'},
-  {uri: require("../assets/images/MasterClass.png"), nama:'Master Class', desc:'+50 course GRATIS untuk kamu memulai Belajar', screen:'free'},
-  {uri: require("../assets/images/MasterClassOJT.png"), nama:'Master Class+OJT', desc:'+50 course GRATIS untuk kamu memulai Belajar', screen:'free'},
+  {uri: require("../assets/images/MasterClass.png"), nama:'Master Class', desc:'+50 course GRATIS untuk kamu memulai Belajar', screen:'master'},
+  {uri: require("../assets/images/MasterClassOJT.png"), nama:'Master Class+OJT', desc:'+50 course GRATIS untuk kamu memulai Belajar', screen:'masterojt'},
   {uri: require("../assets/images/LearningPath.png"), nama:'Learning Path', desc:'+50 course GRATIS untuk kamu memulai Belajar', screen:'free'},
 ]
 export default function AcademyScreen() {
@@ -28,7 +28,7 @@ export default function AcademyScreen() {
           <ImageBackground source={require("../assets/images/academy.png")} style={{height:250,width:DEVICE_WIDTH, }}>
             <LinearGradient colors={['transparent','transparent', 'black']} style={styles.linearGradient}>
               <Text style={styles.textBg}>Academy</Text>
-              <Text style={styles.textBg2}>in Fronssst of</Text>
+              {/* <Text style={styles.textBg2}>in Fronssst of</Text> */}
             </LinearGradient>
           </ImageBackground>
         </View>

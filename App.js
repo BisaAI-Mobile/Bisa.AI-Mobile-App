@@ -19,7 +19,7 @@ import MyCourse from "./screen/MyCourse";
 // import MyCourseScreen from "./screen/MyCourse";
 import ProfileScreen from "./screen/Profile";
 // import tes from "./screen/myCourse/config/router";
-import TopNavbar, { TabStack } from "./screen/myCourse/config/router";
+import TabStack, { FreeCourseTab } from "./screen/myCourse/config/router";
 import FreeCourse from "./screen/FreeCourse";
 import MasterClass from "./screen/MasterClass";
 import MasterClassOjt from "./screen/MasterClassOjt";
@@ -37,12 +37,13 @@ import Signup from "./screen/screens/signup_screen";
 import Profile from "./screen/screens/profile_screen";
 import Editprofile from "./screen/screens/eprofile_screen";
 // import TabCourse from "./screen/screens/detail_course";
-import CourseTab from "./screen/screens/detail_course";
+import CourseTab, { TabDetail } from "./screen/screens/detail_course";
 import MasterCard from "./screen/components/MasterCard";
 import NavbarSertif from "./screen/TabSertif";
 import MasterDetail from "./screen/myCourse/screen/MasterDetail";
 import { AuthProvider } from "./screen/auth/Authcontext";
 import Info from "./screen/screens/componen/info";
+import MasterOJT from "./screen/MasterClassOjt";
 // import TabCourse from "./screen/myCourse/screen/detail_course";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -84,7 +85,7 @@ export function HomeStack() {
         }}
       />
       <Stack.Screen name="mastercard" component={MasterCard}/>
-      <Stack.Screen name="masterojt" component={MasterClassOjt} />
+      <Stack.Screen name="masterojt" component={MasterOJT} />
       <Stack.Screen name="sil" component={SilabusPage} />
       <Stack.Screen name="learn" component={LearningPath} />
       <Stack.Screen name="master" component={MasterClass} />
@@ -93,14 +94,14 @@ export function HomeStack() {
       <Stack.Screen name="myFree" component={MyFreeCourse} />
       <Stack.Screen name="myMaster" component={MyMasterClass} />
       <Stack.Screen name="myLearn" component={MyLearningPath} />
-      <Stack.Screen name="myAcad" component={TopNavbar} />
-      <Stack.Screen name="TopNavbar" component={TopNavbar} />
+      {/* <Stack.Screen name="myAcad" component={TopNavbar} /> */}
+      {/* <Stack.Screen name="TopNavbar" component={TopNavbar} /> */}
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Editprofile" component={Editprofile} />
-      <Stack.Screen name="Tabcourse" component={CourseTab} />
       <Stack.Screen name="sertif" component={NavbarSertif}/>
       <Stack.Screen name="masterdet" component={MasterDetail}/>
-      <Stack.Screen name="tabbbbb" component={CourseTab}/>
+      {/* <Stack.Screen name="tabcourse" component={CourseTab}/>
+      <Stack.Screen name="detailtab" component={TabDetail}/> */}
       {/* <Stack.Screen name="Certificate" component={Certificate} />
       <Stack.Screen name="Description" component={Description} />
       <Stack.Screen name="Course" component={Course} /> */}
@@ -149,7 +150,7 @@ export function TabNavigator() {
       />
       <Tab.Screen
         name="MyCourseScreen"
-        component={TabStack}
+        component={FreeCourseTab}
         options={({ route }) => ({
           tabBarStyle: ((route) => {
             const routeName = getFocusedRouteNameFromRoute(route) ?? "";

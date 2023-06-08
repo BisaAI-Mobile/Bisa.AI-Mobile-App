@@ -1,14 +1,16 @@
 // React Native Tab
 // https://aboutreact.com/react-native-tab/
-import * as React from 'react';
+import * as React from "react";
 import SelectDropdown from "react-native-select-dropdown";
 import filter from "lodash.filter";
 import { ListItem, SearchBar } from "react-native-elements";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { Searchbar } from 'react-native-paper';
+import { useEffect, useState, useContext } from "react";
+import { Searchbar } from "react-native-paper";
 import {
   View,
   Text,
+  Pressable,
   Image,
   StyleSheet,
   ScrollView,
@@ -17,159 +19,151 @@ import {
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 import { LinearGradient } from "expo-linear-gradient";
-import CourseCard from './components/CourseCard';
-const reccourse = [
-  {
-    uri: require("../assets/images/course.png"),
-    logo: require("../assets/images/courselogo.png"),
-    nama: "Data Science",
-    price:'FREE',
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../assets/images/course.png"),
-    logo: require("../assets/images/courselogo.png"),
-    nama: "Data Science",
-    price:'FREE',
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../assets/images/course.png"),
-    logo: require("../assets/images/courselogo.png"),
-    nama: "Data Science",
-    price:'FREE',
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../assets/images/course.png"),
-    logo: require("../assets/images/courselogo.png"),
-    nama: "Data Science",
-    price:'FREE',
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../assets/images/course.png"),
-    logo: require("../assets/images/courselogo.png"),
-    nama: "Data Science",
-    price:'FREE',
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../assets/images/course.png"),
-    logo: require("../assets/images/courselogo.png"),
-    nama: "Data Science",
-    price:'FREE',
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../assets/images/course.png"),
-    logo: require("../assets/images/courselogo.png"),
-    nama: "Data Science",
-    price:'FREE',
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../assets/images/course.png"),
-    logo: require("../assets/images/courselogo.png"),
-    nama: "Data Science",
-    price:'FREE',
-    stars: "5,0",
-    silabus: "6",
-  },
-];
-const BarSearch = () => {
-  const [searchQuery, setSearchQuery] = React.useState('');
+import { useNavigation } from "@react-navigation/native";
+import CourseCard from "./components/CourseCard";
+import MasterCard from "./components/MasterCard";
+import ModalDropdown from "react-native-modal-dropdown";
+import { Octicons } from "@expo/vector-icons";
+import { AuthContext } from "./auth/Authcontext";
+export default function MasterOJT() {
+  const navigation = useNavigation();
+  const [searchQuery, setSearchQuery] = useState("");
+  const onChangeSearch = (query) => setSearchQuery(query);
+  const {userInfo} = useContext(AuthContext);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append(
+      "Authorization",
+      `JWT ${userInfo.access_token}`
+    );
 
-  const onChangeSearch = query => setSearchQuery(query);
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
 
+    fetch(
+      "https://gate.bisaai.id/elearning2/course/get_course?is_aktif=1&is_free=0&is_ojt=1&order_by_number_of_student=desc",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((json) => setData(json.data))
+      .catch((error) => console.log("error", error));
+  });
+
+  // const BarSearch = () => {
+  //   const [searchQuery, setSearchQuery] = React.useState("");
+
+  //   const onChangeSearch = (query) => setSearchQuery(query);
+
+  //   return (
+  //     <View>
+  //       <Searchbar
+  //         style={{
+  //           width: 240,
+  //           height: 37,
+  //           alignItems: "center",
+  //           borderWidth: 1,
+  //           borderColor: "grey",
+  //           backgroundColor: "white",
+  //         }}
+  //         placeholder="Search"
+  //         onChangeText={onChangeSearch}
+  //         value={searchQuery}
+  //       />
+  //     </View>
+  //   );
+  // };
+  const countries = ["Terpopuler", "Terbaru"];
+  // function FreeCourse() {
   return (
-    <View>
-      <Searchbar
-        style={{width:240, height:37,alignItems:'center', borderWidth:1,borderColor:'grey', backgroundColor:'white'}}
-        placeholder="Search"
-        onChangeText={onChangeSearch}
-        value={searchQuery}
-      />
-    </View>
-  );
-};
-const countries = ["Terpopuler", "Terbaru"];
-export default function MasterClassOjt() {
-    return (
-      <View style={{ width: windowWidth, height: windowHeight }}>
-        <LinearGradient
-          colors={["#87cefa", "#f8f8ff"]}
-          style={styles.linearGradient}
+    <View style={{ width: windowWidth, height: windowHeight }}>
+      <LinearGradient
+        colors={["#87cefa", "#f8f8ff"]}
+        style={styles.linearGradient}
+      >
+        <View
+          style={{
+            flex: 1,
+            height: 170,
+            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+            paddingTop: 20,
+          }}
         >
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              flexDirection: "column",
-              alignItems: "center",
-              paddingTop: 50,
-            }}
-          >
-            <Image
-              source={require("../assets/images/FreeCourse.png")}
-              style={{ height: 100, width: 100 }}
+          <Image
+            source={require("../assets/images/MasterClassOJT.png")}
+            style={{ height: 100, width: 100 }}
+          />
+          <Text style={styles.textTitle}>Master Class</Text>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            gap: 20,
+            height: 60,
+            justifyContent: "center",
+          }}
+        >
+          <View style={{}}>
+            <Searchbar
+              style={{
+                width: 240,
+                height: 50,
+                alignItems: "center",
+                justifyContent: "center",
+                borderWidth: 1,
+                borderColor: "grey",
+                backgroundColor: "white",
+              }}
+              placeholder="Search"
+              onChangeText={onChangeSearch}
+              value={searchQuery}
             />
-            <Text style={styles.textTitle}>My Course</Text>
           </View>
-          <View style={{flexDirection:'row',gap:20,height:40, justifyContent:'center'}}>
-          <BarSearch/>
           <View>
-            <SelectDropdown
-              data={countries}
-              onSelect={(selectedItem, index) => {
-                console.log(selectedItem, index);
-              }}
-              defaultButtonText={"Filter"}
-              buttonTextAfterSelection={(selectedItem, index) => {
-                return selectedItem;
-              }}
-              rowTextForSelection={(item, index) => {
-                return item;
-              }}
-              buttonStyle={styles.dropdown1BtnStyle}
-              buttonTextStyle={styles.dropdown1BtnTxtStyle}
-              renderDropdownIcon={(isOpened) => {
-                return (
-                  <FontAwesome
-                    name={isOpened ? "chevron-up" : "chevron-down"}
-                    color={"#444"}
-                    size={18}
-                  />
-                );
-              }}
-              dropdownIconPosition={"right"}
-              dropdownStyle={styles.dropdown1DropdownStyle}
-              rowStyle={styles.dropdown1RowStyle}
-              rowTextStyle={styles.dropdown1RowTxtStyle}
-              // search={true}
-              // searchPlaceHolder={'filter'}
-            />
-          </View>
-          </View>
-        </LinearGradient>
-        <View style={styles.container}>
-          <ScrollView
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              // width:'100%'
-            }}
+            <ModalDropdown
+              options={["Terpopuler", "Terbaru"]}
+              // onSelect={Change()}
             >
-            {/* <View
+              <View
+                style={{
+                  backgroundColor: "white",
+                  borderColor: "grey",
+                  borderWidth: 1,
+                  borderRadius: 10,
+                  height: 40,
+                  justifyContent: "center",
+                  width: 115,
+                  alignItems: "center",
+                }}
+              >
+                <View style={{ flexDirection: "row", gap: 8 }}>
+                  <Text>Terpopuler</Text>
+                  <View style={{}}>
+                    <Octicons name="triangle-down" size={24} color="black" />
+                  </View>
+                </View>
+              </View>
+            </ModalDropdown>
+          </View>
+        </View>
+      </LinearGradient>
+      <View style={styles.container}>
+        <ScrollView
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            // width:'100%'
+          }}
+        >
+          {/* <View
               style={{
                 flexDirection: "column",
                 justifyContent: "space-between",
@@ -179,18 +173,27 @@ export default function MasterClassOjt() {
                 backgroundColor: "red",
               }}
             > */}
-              {reccourse.map((course) => {
-                return (
-                  <View style={{flexDirection:'row', width:'50%'}}>
-                    <CourseCard kelas={course}/>
-                  </View>
-              )})}
-            {/* </View> */}
-          </ScrollView>
-        </View>
+
+          {data.map((course, index) => {
+            return (
+              <View
+                style={{
+                  flexDirection: "row",
+                  width: "50%",
+                  justifyContent: "center",
+                }}
+              >
+                <MasterCard kelas={course} key={index} />
+              </View>
+            );
+          })}
+          {/* </View> */}
+        </ScrollView>
       </View>
-    );
-  }
+    </View>
+  );
+}
+// }
 
 const styles = StyleSheet.create({
   linearGradient: {

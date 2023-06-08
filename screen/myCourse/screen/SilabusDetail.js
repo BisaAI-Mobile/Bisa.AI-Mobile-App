@@ -17,10 +17,15 @@ import { DetailButton } from "../../components/CourseCard";
 import { useNavigation } from "@react-navigation/native";
 import YoutubePlayer from "react-native-youtube-iframe";
 import React, { useState, useCallback, useRef } from "react";
+import { DetailContext } from "../../screens/detail_course";
+import { useContext } from "react";
 
-export default function SilabusPage() {
+
+export default function SilabusPage({route}) {
   const navigation = useNavigation();
+  // const {datacourse} = useContext(DetailContext);
   const [playing, setPlaying] = useState(false);
+  const { data } = route.params;
 
   const onStateChange = useCallback((state) => {
     if (state === "ended") {
@@ -32,7 +37,20 @@ export default function SilabusPage() {
   //   const togglePlaying = useCallback(() => {
   //     setPlaying((prev) => !prev);
   //   }, []);
-
+  const source = {
+    html: data.info_course,
+  };
+  const mixedStyle = {
+    body: {
+      // whiteSpace: 'normal',
+      // color: '#aaa'
+      // fontSize:12
+      textAlign: "justify",
+    },
+    p: {
+      // fontSize:25
+    },
+  };
   return (
     <View style={{ flex: 1 }}>
       <ScrollView style={{}}>
@@ -58,7 +76,7 @@ export default function SilabusPage() {
             <YoutubePlayer
               height={230}
               play={playing}
-              videoId={"rJYrhyDYruY"}
+              videoId={data.video}
               onChangeState={onStateChange}
               webViewStyle={{ opacity: 0.99 }}
             />
@@ -73,7 +91,7 @@ export default function SilabusPage() {
                 }}
               >
                 <Text style={styles.text3}>
-                  Data Science: Introduction Data Science
+                  Data Science: {data.name}
                 </Text>
               </View>
               <View

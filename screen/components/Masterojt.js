@@ -15,7 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import CurrencyFormat from "./FormatterPrice";
 // import CurrencyFormat from "./FormatterPrice";
 import { Rating } from "react-native-stock-star-rating";
-const MasterCard = ({ kelas, item, par }) => {
+const Masterojt = ({ kelas, item, par }) => {
   const numberFormat = (value) =>
   new Intl.NumberFormat('en-IN', {
     style: 'currency',
@@ -62,7 +62,7 @@ const MasterCard = ({ kelas, item, par }) => {
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <Text>Rp.{kelas.price}</Text>
+            <Text>{numberFormat(`${kelas.price}`)}</Text>
             {/* <Text>{kelas.price}</Text> */}
             <View style={styles.buttondetail}>
               <Pressable
@@ -152,4 +152,4 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
 });
-export default MasterCard;
+export default Masterojt;

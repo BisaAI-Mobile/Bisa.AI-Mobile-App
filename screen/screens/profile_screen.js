@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -18,6 +18,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAvoidingView } from "react-native";
 import UploadImage from "./hooks/upload_image";
+import { AuthContext } from "../auth/Authcontext";
 import DatePicker from "react-native-date-picker";
 // import DatePicker from "react-native-datepicker";
 // import DateTimePicker from "@react-native-community/datetimepicker";
@@ -32,112 +33,159 @@ const SizeHeight = Dimensions.get("window").height;
 
 const Profile = () => {
   const navigation = useNavigation();
+  const [dataProfile, setData] = useState([]);
+  const { userInfo } = useContext(AuthContext);
+
+  const url = "https://gate.bisaai.id/elearning2/users/get_profile";
+  useEffect(() => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", `JWT ${userInfo.access_token}`);
+
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    fetch(url, requestOptions)
+      .then((response) => response.json())
+      .then((json) => setData(json.data))
+      .catch((error) => console.log("error", error));
+  });
+  // const navigation = useNavigation();
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <KeyboardAvoidingView style={{ flex: 1 }}>
-        <ImageBackground
-          source={require("../assets/images/editprofile.png")}
-          resizeMode="cover"
-          style={styles.image}
-        >
-          <View style={{ width: SizeWidth }}>
-            <View style={styles.container}>
-              <View
-                style={{
-                  width: "15%",
-                  height: 64,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Image
-                  style={{ width: 45, height: 47 }}
-                  source={require("../assets/images/logosplash1.png")}
-                />
-              </View>
-              <UploadImage />
-              <View style={{ alignItems: "center", paddingBottom: 50 }}>
-                <Text style={styles.logo}>Nama User</Text>
-              </View>
-              <TouchableOpacity
-                style={{
-                  height: 30,
-                }}
-                onPress={() => navigation.navigate("Editprofile")}
-              >
-                <View style={styles.shadow}>
-                  <Text style={styles.signText}>Edit Profile</Text>
-                </View>
-              </TouchableOpacity>
-              <View style={{ paddingTop: 18, width: SizeWidth }}>
-                <View style={styles.textHardcod}>
-                  <Image
-                    style={{ width: 27, height: 20 }}
-                    source={require("../assets/images/email.png")}
-                  />
-                  <Text style={styles.textpaddingHC}>Email</Text>
-                </View>
-                <View style={styles.textHardcod}>
-                  <Image
-                    style={styles.imageStyle}
-                    source={require("../assets/images/jkelamin.png")}
-                  />
-                  <Text style={styles.textpaddingHC}>Jenis Kelamin</Text>
-                </View>
-                <View style={styles.textHardcod}>
-                  <Image
-                    style={styles.imageStyle}
-                    source={require("../assets/images/tlahir.png")}
-                  />
-                  <Text style={styles.textpaddingHC}>Tanggal Lahir</Text>
-                </View>
-                <View style={styles.textHardcod}>
-                  <Image
-                    style={styles.imageStyle}
-                    source={require("../assets/images/telepon.png")}
-                  />
-                  <Text style={styles.textpaddingHC}>Telepon</Text>
-                </View>
-                <View style={styles.textHardcod}>
-                  <Image
-                    style={styles.imageStyle}
-                    source={require("../assets/images/linkedin.png")}
-                  />
-                  <Text style={styles.textpaddingHC}>LinkedIn</Text>
-                </View>
-                <View style={styles.textHardcod}>
-                  <Image
-                    style={styles.imageStyle}
-                    source={require("../assets/images/ig.png")}
-                  />
-                  <Text style={styles.textpaddingHC}>Instagram</Text>
-                </View>
-                <View style={styles.textHardcod}>
-                  <Image
-                    style={styles.imageStyle}
-                    source={require("../assets/images/alamat.png")}
-                  />
-                  <Text style={styles.textpaddingHC}>Alamat</Text>
-                </View>
-                <View style={styles.textHardcod}>
-                  <Image
-                    style={styles.imageStyle}
-                    source={require("../assets/images/rkerja.png")}
-                  />
-                  <Text style={styles.textpaddingHC}>Riwayat Kerja</Text>
-                </View>
-              </View>
+    <ScrollView>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <KeyboardAvoidingView style={{ flex: 1 }}>
+          <ImageBackground
+            source={require("../assets/images/editprofile.png")}
+            resizeMode="cover"
+            style={styles.image}
+          >
+            {dataProfile.map((datProf) => (
+              <View style={{ width: SizeWidth }}>
+                <View style={styles.container}>
+                  <View
+                    style={{
+                      // width: "15%",
+                      height: 64,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Image
+                      style={{ width: 45, height: 47 }}
+                      source={require("../assets/images/logosplash1.png")}
+                    />
+                  </View>
+                  <UploadImage />
+
+                  <View style={{ alignItems: "center", height:50 }}>
+                    <Text style={styles.logo}>
+                      {/* [{datProf.email}] */}
+                      {datProf.name}
+                    </Text>
+                  </View>
+
+                  {/* {dataProfile.map((datProf) => (
+            <View>
+              <Text>[{datProf.email}] {datProf.name}</Text>
             </View>
-          </View>
-        </ImageBackground>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+           ))} */}
+                  <TouchableOpacity
+                    style={{
+                      height: 30,
+                    }}
+                    onPress={() =>
+                      navigation.navigate("Editprofile", { dataProf: datProf })
+                    }
+                  >
+                    <View style={styles.shadow}>
+                      <Text style={styles.signText}>Edit Profile</Text>
+                    </View>
+                  </TouchableOpacity>
+                  <View style={{ paddingTop: 18, width: SizeWidth }}>
+                    <View style={styles.textHardcod}>
+                      <Image
+                        style={{ width: 27, height: 20 }}
+                        source={require("../assets/images/email.png")}
+                      />
+                      <Text style={styles.textpaddingHC}>{datProf.email}</Text>
+                    </View>
+                    <View style={styles.textHardcod}>
+                      <Image
+                        style={styles.imageStyle}
+                        source={require("../assets/images/jkelamin.png")}
+                      />
+                      <Text style={styles.textpaddingHC}>Jenis Kelamin</Text>
+                    </View>
+                    <View style={styles.textHardcod}>
+                      <Image
+                        style={styles.imageStyle}
+                        source={require("../assets/images/tlahir.png")}
+                      />
+                      <Text style={styles.textpaddingHC}>Tanggal Lahir</Text>
+                    </View>
+                    <View style={styles.textHardcod}>
+                      <Image
+                        style={styles.imageStyle}
+                        source={require("../assets/images/telepon.png")}
+                      />
+                      <Text style={styles.textpaddingHC}>Telepon</Text>
+                    </View>
+                    <View style={styles.textHardcod}>
+                      <Image
+                        style={styles.imageStyle}
+                        source={require("../assets/images/linkedin.png")}
+                      />
+                      <Text style={styles.textpaddingHC}>LinkedIn</Text>
+                    </View>
+                    <View style={styles.textHardcod}>
+                      <Image
+                        style={styles.imageStyle}
+                        source={require("../assets/images/ig.png")}
+                      />
+                      <Text style={styles.textpaddingHC}>Instagram</Text>
+                    </View>
+                    <View style={styles.textHardcod}>
+                      <Image
+                        style={styles.imageStyle}
+                        source={require("../assets/images/alamat.png")}
+                      />
+                      <Text style={styles.textpaddingHC}>Alamat</Text>
+                    </View>
+                    <View style={styles.textHardcod}>
+                      <Image
+                        style={styles.imageStyle}
+                        source={require("../assets/images/rkerja.png")}
+                      />
+                      <Text style={styles.textpaddingHC}>Riwayat Kerja</Text>
+                    </View>
+                  </View>
+                </View>
+                <View style={{ paddingTop: 50}}>
+                  <Text>Account</Text>
+                  <View style={styles.textHardcod}>
+                    <Image
+                      style={styles.imageStyle}
+                      source={require("../../assets/images/Vector.png")}
+                    />
+                    <Text style={styles.textpaddingHC}>Log Out</Text>
+                  </View>
+                </View>
+              </View>
+            ))}
+          </ImageBackground>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     alignItems: "center",
     // padding: 30,
     // paddingTop:"100%",

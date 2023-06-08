@@ -5,7 +5,7 @@ import SelectDropdown from "react-native-select-dropdown";
 import filter from "lodash.filter";
 import { ListItem, SearchBar } from "react-native-elements";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Searchbar } from "react-native-paper";
 import {
   View,
@@ -24,9 +24,11 @@ import CourseCard from "./components/CourseCard";
 import MasterCard from "./components/MasterCard";
 import ModalDropdown from "react-native-modal-dropdown";
 import { Octicons } from "@expo/vector-icons";
+import { AuthContext } from "./auth/Authcontext";
 export default function MasterClass() {
   const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState("");
+  const {userInfo} = useContext(AuthContext);
   const onChangeSearch = (query) => setSearchQuery(query);
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -34,7 +36,7 @@ export default function MasterClass() {
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append(
       "Authorization",
-      "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IjEyMzg4IzQiLCJpYXQiOjE2ODUwMDgwNjYsIm5iZiI6MTY4NTAwODA2NiwiZXhwIjoxNjg3NjAwMDY2fQ.1G3ccMMUlIOXYx6AmG8DoHlhqTMud67Hx7whD4GFsTc"
+      `JWT ${userInfo.access_token}`
     );
 
     var requestOptions = {

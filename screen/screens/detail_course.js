@@ -12,6 +12,7 @@ import { Text, View, Dimensions, Image, StyleSheet } from "react-native";
 import Silabus from "./componen/silabus";
 // import Silabus from "./componen/silabus";
 // import Tugas from "./componen/tugas";
+import { createContext } from "react";
 import Tugas from "./componen/tugas";
 import Diskusi from "./componen/diskusi";
 // import Diskusi from "./componen/diskusi";
@@ -27,28 +28,35 @@ const windowHeight = Dimensions.get("window").height;
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 const linkurl='https://gate.bisaai.id/elearning2/course/media/'
-export function TabDetail({route, navigation}) {
+export const DetailContext = createContext();
+export default function TabDetail({route, navigation, children}) {
   const { data } = route.params;
+  // datas = data
   return (
+    <DetailContext.Provider
+    value={{
+      data
+    }}
+    >
     <View style={{ width: windowWidth, height: windowHeight, paddingTop:50 }}>
     <View style={{ alignItems: "center", padding: 20, backgroundColor:"rgb(240, 243, 246)" }}>
     <View
       style={{
         width: 312,
         height: 118,
-        backgroundColor: "rgb(4, 57, 128)",
+        backgroundColor: "rgb(39, 50, 70)",
         borderRadius: 15,
         padding: 15,
         flexDirection: "row",
       }}
     >
       <Image
-        style={styles.imageStyle}
-        source={{uri:`${linkurl}${data.photo}`}}
-      />
-      <View>
+            source={{uri:`${linkurl}${data.photo_course}`}}
+            style={{ height: 80, width: 80 }}
+          />
+      <View style={{width:130, height:150,}}>
         <Text style={styles.txtUppper}>Penyusun</Text>
-        <Text style={styles.txtBottom}>ACADEMY</Text>
+        <Text style={styles.txtBottom}>{data.arranged_by}</Text>
       </View>
       <View>
         <Text style={styles.txtUppper}>Level</Text>
@@ -59,22 +67,16 @@ export function TabDetail({route, navigation}) {
     <Tab.Navigator
       screenOptions={{
         tabBarActiveTintColor: "black",
-        // tabBarActiveStyle:'blue',
         tabBarInactiveTintColor: "#a9a9a9",
-        // tabBarInactiveTintColor: '#F8F8F8',
         tabBarStyle: {
           backgroundColor:"rgb(240, 243, 246)",
           height: 100,
           justifyContent: "center",
         },
         tabBarLabelStyle: {
-          // position: 'absolute',
-          // backgroundColor:'white',
           textAlign: "center",
           fontWeight: "bold",
-          // color:'white',
           fontSize: 12,
-          // zIndex: '1'
         },
 
         tabBarIndicatorStyle: {
@@ -84,33 +86,23 @@ export function TabDetail({route, navigation}) {
           width: 120,
           marginTop: 30,
           borderRadius: 20,
-          // zIndex: '3'
         },
-        // tabBarAccessibilityLabel:{
-        //   backgroundColor:'red'
-        // },
         tabBarIndicatorContainerStyle: {
-          // backgroundColor:'white'
         },
-        // tabBarGap: 10,
         tabBarItemStyle: {
-          // position: 'absolute',
-          // width:'100%',
           margin: 10,
           marginTop: 30,
-          // backgroundColor:'white',
-          // height:40,
-          // width:100,
           borderRadius: 10,
-          // zIndex: '2'
         },
       }}
     >
-      <CourseTab/>
       <Tab.Screen
         name="Info"
         component={Info}
         options={{
+          params:{
+            data:data
+          },
           tabBarLabel: "Info",
         }}
       />
@@ -128,73 +120,23 @@ export function TabDetail({route, navigation}) {
           tabBarLabel: "Tugas",
         }}
       />
-      {/* <Tab.Screen
-        name="Diskusi"
-        component={Diskusi}
-        options={{
-          tabBarLabel: "Diskusi",
-        }} */}
-      {/* /> */}
     </Tab.Navigator>
     </View>
+    </DetailContext.Provider>
   );
 }
 
-export default function CourseTab() {
+export function CourseTab({route}) {
+  // const { data } = route.params;
   return (
     <View style={{ width: windowWidth, height: windowHeight }}>
-      {/* <View style={{ alignItems: "center", padding: 20 }}>
-        <View
-          style={{
-            width: 312,
-            height: 118,
-            backgroundColor: "rgb(4, 57, 128)",
-            borderRadius: 15,
-            padding: 15,
-            flexDirection: "row",
-          }}
-        >
-          <Image
-            style={styles.imageStyle}
-            source={require("../assets/images/detailcourse.png")}
-          />
-          <View>
-            <Text style={styles.txtUppper}>Penyusun</Text>
-            <Text style={styles.txtBottom}>ACADEMY</Text>
-          </View>
-          <View>
-            <Text style={styles.txtUppper}>Level</Text>
-            <Text style={styles.txtBottom}>Pemula</Text>
-          </View>
-        </View>
-      </View> */}
-
       <NavigationContainer independent={true}>
         <Stack.Navigator
-          // screenOptions={{
-          //   headerStyle: { backgroundColor: '#633689' },
-          //   headerTintColor: 'white',
-          //   headerTitleStyle: { fontWeight: 'bold' }
-          // }}
           screenOptions={{
             headerShown: false,
           }}
-        >
-          {/* <Stack.Screen
-            name="TabStack"
-            component={TabStack}
-            options={{ title: "Top Bar" }}
-          /> */}
-          <Stack.Screen
-            name="CourseTab"
-            component={CourseTab}
-            options={{ title: "Top" }}
-          />
-          <Stack.Screen
-            name="sil"
-            component={SilabusPage}
-            // options={{ title: "Top" }}
-          />
+        ><Stack.Screen name="detailtab" component={TabDetail}/>
+          {/* <Stack.Screen name="TabDetail" component={TabDetail}/> */}
         </Stack.Navigator>
       </NavigationContainer>
     </View>
@@ -222,7 +164,7 @@ const styles = StyleSheet.create({
     padding: 15,
     fontWeight: "bold",
     color: "white",
-    fontSize: 18,
+    fontSize: 14,
   },
   txtBottom: {
     // padding: 15,

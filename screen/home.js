@@ -211,7 +211,7 @@ export default function HomeScreen({ navigation }) {
                     <Text style={styles.text}>Free Course</Text>
                   </View>
                 </Pressable>
-                <Pressable style={styles.buttonShadow}>
+                <Pressable style={styles.buttonShadow} onPress={() => navigation.navigate("masterojt")}>
                   <View style={styles.buttonContainer}>
                     <Image source={require("../assets/images/button2.png")} />
                     <Text style={styles.text}>Master Class+OJT</Text>
@@ -230,13 +230,12 @@ export default function HomeScreen({ navigation }) {
                 <Pressable style={styles.buttonShadow} onPress={() => navigation.navigate("sertif")}>
                   <View
                     style={styles.buttonContainer}
-                    onPress={() => navigation.navigate("sertif")}
                   >
                     <Image source={require("../assets/images/button3.png")} />
                     <Text style={styles.text}>Certificate</Text>
                   </View>
                 </Pressable>
-                <Pressable style={styles.buttonShadow}>
+                <Pressable style={styles.buttonShadow} onPress={() => navigation.navigate("myFree")}>
                   <View style={styles.buttonContainer}>
                     <Image source={require("../assets/images/button4.png")} />
                     <Text style={styles.text}>Learning Path</Text>

@@ -1,7 +1,10 @@
 import * as React from "react";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
-import MyCard from "../../myCourse/screen/FreeCard";
+import MyCard, { IdContext } from "../../myCourse/screen/FreeCard";
 import SilabusCard from "./silabusCard";
+import { DetailContext } from "../detail_course";
+import { useState, useContext, useEffect } from "react";
+import { AuthContext } from "../../auth/Authcontext";
 // import SilabusCard from "./silabusCard";
 const reccourse = [
   {
@@ -29,10 +32,51 @@ const reccourse = [
     score: 0,
   },
 ];
-export default function Silabus() {
+export default function Silabus({ route }) {
+  const [dataSil, setDataSil] = useState([]);
+  // const { data } = route.params;
+  const { userInfo } = useContext(AuthContext);
+  const {data} = useContext(DetailContext);
+  // const { courseid } = useContext(IdContext);
+  // const {id} = useContext(IdContext);
+  const url = `https://gate.bisaai.id/elearning2/academy/get_customer_syllabus?id_customer_course=${data.id_customer_course}&is_list=2&is_limit=111`;
+  useEffect(() => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", `JWT ${userInfo.access_token}`);
+    // myHeaders.append("id_customer_course", `${data.id_customer_course}`);
+    // myHeaders.append("is_free", "0");
+    // myHeaders.append("status", "1");
+    // myHeaders.append("id_course", `${id}`);
+
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    fetch(url, requestOptions)
+      .then((response) => response.json())
+      .then((json) => setDataSil(json.data))
+      .catch((error) => console.log("error", error));
+  });
+  // const source = {
+  //   html: data.info_course,
+  // };
+  // const mixedStyle = {
+  //   body: {
+  //     // whiteSpace: 'normal',
+  //     // color: '#aaa'
+  //     // fontSize:12
+  //     textAlign: "justify",
+  //   },
+  //   p: {
+  //     // fontSize:25
+  //   },
+  // };
   return (
-    <ScrollView style={{ height: 700 }}>
-      <View style={{padding:15, paddingLeft:20}}>
+    <ScrollView style={{paddingBottom:30}}>
+      <View style={{ padding: 15, paddingLeft: 20 }}>
         <Text style={styles.txt1}>Silabus</Text>
       </View>
       <View
@@ -45,8 +89,8 @@ export default function Silabus() {
           // backgroundColor: "#f8f8ff",
         }}
       >
-        {reccourse.map((course) => {
-          return <SilabusCard kelas={course} screenName={'sil'}/>;
+        {dataSil.map((course, i) => {
+          return <SilabusCard kelas={course} key={i}/>;
         })}
       </View>
     </ScrollView>

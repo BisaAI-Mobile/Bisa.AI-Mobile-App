@@ -30,7 +30,7 @@ import RadioForm, {
 const SizeWidth = Dimensions.get("window").width;
 const SizeHeight = Dimensions.get("window").height;
 
-const Editprofile = () => {
+const Editprofile = ({ route }) => {
   // const [date, setDate] = useState(new Date());
   // const [mode, setMode] = useState("date");
   // const [show, setShow] = useState(false);
@@ -69,8 +69,9 @@ const Editprofile = () => {
   //   // You can turn it in to your desired format
   //   return date + "-" + month + "-" + year; //format: d-m-y;
   // };
+  const { dataProf } = route.params;
   const navigation = useNavigation();
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(`${dataProf.name}`);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -109,34 +110,28 @@ const Editprofile = () => {
                 </View>
                 <UploadImage />
                 <View style={{ alignItems: "center" }}>
-                  <Text style={styles.logo}>Nama User</Text>
+                  <Text style={styles.logo}>{dataProf.name}</Text>
                 </View>
                 <View style={{ alignItems: "flex-start", width: "100%" }}>
-                  <Text style={styles.textEp}>Nama</Text>
+                  <Text style={styles.textEp}>Email Address</Text>
+                </View>
+                <View style={styles.inputView1}>
+                  <Text style={styles.textEp}>{dataProf.email}</Text>
+                </View>
+                <View style={{ alignItems: "flex-start", width: "100%" }}>
+                  <Text style={styles.textEp}>Nama Lengkap</Text>
                 </View>
                 <View style={styles.inputView}>
                   <TextInput
                     style={styles.inputText}
                     name="username"
                     value={username}
-                    placeholder="input your name"
+                    placeholder={dataProf.name}
                     placeholderTextColor="#808080"
                     onChangeText={(text) => setUsername(text)}
                   />
                 </View>
-                <View style={{ alignItems: "flex-start", width: "100%" }}>
-                  <Text style={styles.textEp}>Email</Text>
-                </View>
-                <View style={styles.inputView}>
-                  <TextInput
-                    style={styles.inputText}
-                    name="email"
-                    value={email}
-                    placeholder="bisaai@gmail.com"
-                    placeholderTextColor="#808080"
-                    onChangeText={(text) => setName(text)}
-                  />
-                </View>
+
                 <View style={{ alignItems: "flex-start", width: "100%" }}>
                   <Text style={styles.textEp}>Tanggal Lahir</Text>
                 </View>
@@ -316,6 +311,11 @@ const styles = StyleSheet.create({
     padding: 5,
     alignItems: "flex-start",
   },
+  textEp1: {
+    backgroundColor: "grey",
+    padding: 5,
+    alignItems: "flex-start",
+  },
   logo: {
     fontWeight: "bold",
     fontSize: 28,
@@ -326,6 +326,15 @@ const styles = StyleSheet.create({
   inputView: {
     width: "100%",
     backgroundColor: "#ffffff",
+    borderRadius: 10,
+    height: 50,
+    marginBottom: 20,
+    justifyContent: "center",
+    padding: 10,
+  },
+  inputView1: {
+    width: "100%",
+    backgroundColor: "#dcdcdc",
     borderRadius: 10,
     height: 50,
     marginBottom: 20,

@@ -7,17 +7,46 @@ import {
     Pressable,
   } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import App from "../../../App";
+import CourseTab from "../../screens/detail_course";
+import { useState, useContext, useEffect, createContext } from "react";
+import { Button } from "react-native-elements";
 const linkurl='https://gate.bisaai.id/elearning2/course/media/'
-const MyCard = ({ kelas, screenName }) => {
+export const IdContext = createContext();
+const MyCard = ({ kelas, screenName, children }) => {
+  const [idcrs, setid]=useState([])
+  const sett =()=>{
+    setid(kelas)
+  }
     const navigation = useNavigation();
     return (
-      <Pressable onPress={() =>
-        navigation.navigate("master"
-          // data: kelas,
-          // id : kelas.id_course
+      <IdContext.Provider
+      value={{
+        idcrs
+      }}>
+      {children}
+      {/* <Button onPress={() =>{
+        setid(kelas)
+        console.log(idcrs)
+      }
+    }>
+        aaaa
+      </Button> */}
+    <Pressable onPress={() =>{
+        // setid(kelas.id_course)
+        // console.log(id)
+        navigation.navigate('detailTab', {
+          // screen: 'Silabus',
+          // params:{
+            data:kelas
+          // }
+        },
         )
-      }>
+      }
+      
+      // screen:'',
+      // data: kelas,
+      
+    }>
         <View style={styles.buttonShadow}>
           <View
             style={{
@@ -30,7 +59,7 @@ const MyCard = ({ kelas, screenName }) => {
               paddingTop: 20,
               borderRadius: 10,
             }}
-          >
+            >
             <Image
           source={{uri:`${linkurl}${kelas.photo_course}`}}
           style={{ height: 80, width: 80, alignSelf: "center" }}
@@ -43,7 +72,7 @@ const MyCard = ({ kelas, screenName }) => {
                 gap: 5,
                 paddingTop: 4,
               }}
-            >
+              >
               <Text style={styles.text}>{kelas.course_name}</Text>
               <View style={{ flexDirection: "row", gap: 3 }}>
                 <Text style={{ fontWeight: "bold" }}>{kelas.rating}</Text>
@@ -55,6 +84,8 @@ const MyCard = ({ kelas, screenName }) => {
           </View>
         </View>
       </Pressable>
+      </IdContext.Provider>
+  // </IdContext.Provider>
     );
   };
 
@@ -67,9 +98,9 @@ const MyCard = ({ kelas, screenName }) => {
       shadowColor: "#000",
       width: 350,
       // shadowOffset: {
-      //   width: 0,
-      //   height: 1,
-      // },
+        //   width: 0,
+        //   height: 1,
+        // },
       shadowOpacity: 0.22,
       shadowRadius: 2.22,
       elevation: 5,
@@ -82,6 +113,6 @@ const MyCard = ({ kelas, screenName }) => {
       color: "black",
     },
   });
-//   export default MyFreeCourse;
+  //   export default MyFreeCourse;
   
   export default MyCard

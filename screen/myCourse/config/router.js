@@ -23,34 +23,47 @@ import {
 } from "@react-navigation/native";
 import CourseCard from "../../components/CourseCard";
 import CourseTab from "../../screens/detail_course";
+import Info from "../../screens/componen/info";
 // import { useRoute } from '@react-navigation/native';
 // const state = useNavigationState(state => state);
 // const routeName = (state.routeNames[state.index]);
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
-export function TabStack() {
+export default function TabStack() {
+  // const current_city_ = route.params.current_user_city_;
   return (
     <View style={{height:windowHeight, width:windowWidth}}>
-      <ContainerNavbar />
+      <LinearGradient
+      colors={["#87cefa", "#f8f8ff"]}
+      style={styles.linearGradient}
+    >
+      <View
+        style={{
+          height: 200,
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+          paddingTop: 50,
+        }}
+      >
+        <Image source={require("../../../assets/images/MyCourse.png")} />
+        <Text style={styles.textTitle}>My Course</Text>
+      </View>
+    </LinearGradient>
       <Tab.Navigator
         screenOptions={{
           tabBarActiveTintColor: "black",
           tabBarInactiveTintColor: "#a9a9a9",
-          // tabBarInactiveTintColor: '#F8F8F8',
           tabBarStyle: {
             backgroundColor: "#f8f8ff",
             height: 100,
             justifyContent: "center",
           },
           tabBarLabelStyle: {
-            // position: 'absolute',
-            // backgroundColor:'white',
             textAlign: "center",
             fontWeight: "bold",
-            // color:'white',
             fontSize: 12,
-            // zIndex: '1'
           },
 
           tabBarIndicatorStyle: {
@@ -60,34 +73,33 @@ export function TabStack() {
             width: 120,
             marginTop: 30,
             borderRadius: 20,
-            // zIndex: '3'
           },
-          // tabBarAccessibilityLabel:{
-          //   backgroundColor:'red'
-          // },
           tabBarIndicatorContainerStyle: {
-            // backgroundColor:'white'
           },
-          // tabBarGap: 10,
           tabBarItemStyle: {
-            // position: 'absolute',
-            // width:'100%',
             margin: 10,
             marginTop: 30,
-            // backgroundColor:'white',
-            // height:40,
-            // width:100,
             borderRadius: 10,
-            // zIndex: '2'
           },
         }}
       >
         <Tab.Screen
           name="MyFreeCourse"
           component={MyFreeCourse}
-          options={{
-            tabBarLabel: "Free Course",
-          }}
+          // initialParams={{currentCity: current_city_}}
+          // options={({ route }) => ({
+          //   tabBarStyle: ((route) => {
+          //     const routeName = getFocusedRouteNameFromRoute(route) ?? "";
+          //     console.log(routeName);
+          //     if (routeName !== "MyFreeCourse") {
+          //       return { display: "none" };
+          //     }
+          //     return;
+          //   })(route),
+          // })}
+          // options={{
+          //   tabBarLabel: "Free Course",
+          // }}
         />
         <Tab.Screen
           name="MyMasterClass"
@@ -107,65 +119,21 @@ export function TabStack() {
     </View>
   );
 }
-export function ContainerNavbar() {
-  // const routes = useNavigationState((state) => state.routes);
-  // const currentRoute = routes[routes.length - 1].name;
-  return (
-    <LinearGradient
-      colors={["#87cefa", "#f8f8ff"]}
-      style={styles.linearGradient}
-    >
-      <View
-        style={{
-          height: 200,
-          justifyContent: "center",
-          flexDirection: "column",
-          alignItems: "center",
-          paddingTop: 50,
-        }}
-      >
-        <Image source={require("../../../assets/images/MyCourse.png")} />
-        <Text style={styles.textTitle}>My Course</Text>
-      </View>
-    </LinearGradient>
-  );
-}
-function TopNavbar() {
-  // const route = useRoute();
-  // const routes = useNavigationState((state) => state.routes);
-  // const currentRoute = routes[routes.length - 1].name;
+export function FreeCourseTab() {
   return (
     <View style={{ width: windowWidth, height: windowHeight }}>
-      {/* {currentRoute !== "MyFreeCourse" ? <Text>Sil</Text> : <ContainerNavbar />} */}
       <NavigationContainer independent={true}>
         <Stack.Navigator
-          // screenOptions={{
-          //   headerStyle: { backgroundColor: '#633689' },
-          //   headerTintColor: 'white',
-          //   headerTitleStyle: { fontWeight: 'bold' }
-          // }}
           screenOptions={{
             headerShown: false,
           }}
         >
-          {/* <Stack.Screen name="coursetab" component={CourseTab} /> */}
-          
-          <Stack.Screen
-            name="TabStack"
-            component={TabStack}
-            // options={{
-            //   headerShown: true,}}
-          />
-          <Stack.Screen
-            name="sil"
-            component={SilabusPage}
-            options={{
-              headerShown: false,
-              // presentation: "modal",
-              // animationTypeForReplace: "push",
-              // animation: "none",
-            }}
-          />
+          <Stack.Screen name="TabMycourse" component={TabStack}/>
+          {/* <Stack.Screen name="MyFreeCourse" component={MyFreeCourse}/> */}
+          <Stack.Screen name="detailTab" component={TabDetail}/>
+          <Stack.Screen name="tabcourse" component={CourseTab}/>
+          <Stack.Screen name="info" component={Info}/>
+          <Stack.Screen name="sil" component={SilabusPage} />
         </Stack.Navigator>
       </NavigationContainer>
     </View>
@@ -185,4 +153,25 @@ const styles = StyleSheet.create({
     color: "black",
   },
 });
-export default TopNavbar;
+// export function ContainerNavbar() {
+//   return (
+//     <LinearGradient
+//       colors={["#87cefa", "#f8f8ff"]}
+//       style={styles.linearGradient}
+//     >
+//       <View
+//         style={{
+//           height: 200,
+//           justifyContent: "center",
+//           flexDirection: "column",
+//           alignItems: "center",
+//           paddingTop: 50,
+//         }}
+//       >
+//         <Image source={require("../../../assets/images/MyCourse.png")} />
+//         <Text style={styles.textTitle}>My Course</Text>
+//       </View>
+//     </LinearGradient>
+//   );
+// }
+// export default TopNavbar;
