@@ -35,6 +35,7 @@ const Profile = () => {
   const navigation = useNavigation();
   const [dataProfile, setData] = useState([]);
   const { userInfo } = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
 
   const url = "https://gate.bisaai.id/elearning2/users/get_profile";
   useEffect(() => {
@@ -81,7 +82,7 @@ const Profile = () => {
                   </View>
                   <UploadImage />
 
-                  <View style={{ alignItems: "center", height:50 }}>
+                  <View style={{ alignItems: "center", height: 50 }}>
                     <Text style={styles.logo}>
                       {/* [{datProf.email}] */}
                       {datProf.name}
@@ -118,61 +119,67 @@ const Profile = () => {
                         style={styles.imageStyle}
                         source={require("../assets/images/jkelamin.png")}
                       />
-                      <Text style={styles.textpaddingHC}>Jenis Kelamin</Text>
+                      {datProf.gender==1?<Text style={styles.textpaddingHC}>Laki Laki</Text>:
+                      <Text style={styles.textpaddingHC}>Perempuan</Text>}
                     </View>
                     <View style={styles.textHardcod}>
                       <Image
                         style={styles.imageStyle}
                         source={require("../assets/images/tlahir.png")}
                       />
-                      <Text style={styles.textpaddingHC}>Tanggal Lahir</Text>
+                      <Text style={styles.textpaddingHC}>{datProf.date_of_birth}</Text>
                     </View>
                     <View style={styles.textHardcod}>
                       <Image
                         style={styles.imageStyle}
                         source={require("../assets/images/telepon.png")}
                       />
-                      <Text style={styles.textpaddingHC}>Telepon</Text>
+                      <Text style={styles.textpaddingHC}>{datProf.phone}</Text>
                     </View>
                     <View style={styles.textHardcod}>
                       <Image
                         style={styles.imageStyle}
                         source={require("../assets/images/linkedin.png")}
                       />
-                      <Text style={styles.textpaddingHC}>LinkedIn</Text>
+                      <Text style={styles.textpaddingHC}>Linkedln</Text>
                     </View>
                     <View style={styles.textHardcod}>
                       <Image
                         style={styles.imageStyle}
                         source={require("../assets/images/ig.png")}
                       />
-                      <Text style={styles.textpaddingHC}>Instagram</Text>
+                      <Text style={styles.textpaddingHC}>Instagramm</Text>
                     </View>
                     <View style={styles.textHardcod}>
                       <Image
                         style={styles.imageStyle}
                         source={require("../assets/images/alamat.png")}
                       />
-                      <Text style={styles.textpaddingHC}>Alamat</Text>
+                      <Text style={styles.textpaddingHC}>{datProf.address}</Text>
                     </View>
                     <View style={styles.textHardcod}>
                       <Image
                         style={styles.imageStyle}
                         source={require("../assets/images/rkerja.png")}
                       />
-                      <Text style={styles.textpaddingHC}>Riwayat Kerja</Text>
+                      <Text style={styles.textpaddingHC}>{datProf.educational_background}</Text>
                     </View>
                   </View>
                 </View>
-                <View style={{ paddingTop: 50}}>
+                <View style={{ paddingTop: 50 }}>
                   <Text>Account</Text>
-                  <View style={styles.textHardcod}>
-                    <Image
-                      style={styles.imageStyle}
-                      source={require("../../assets/images/Vector.png")}
-                    />
-                    <Text style={styles.textpaddingHC}>Log Out</Text>
-                  </View>
+                  <TouchableOpacity onPress={() => {
+                  navigation.navigate("Login")
+                  logout();
+                }}>
+                    <View style={styles.textHardcod}>
+                      <Image
+                        style={styles.imageStyle}
+                        source={require("../../assets/images/Vector.png")}
+                      />
+                      <Text style={styles.textpaddingHC}>Log Out</Text>
+                    </View>
+                  </TouchableOpacity>
                 </View>
               </View>
             ))}

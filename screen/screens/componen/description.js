@@ -1,36 +1,30 @@
 import * as React from "react";
 import { Text, StyleSheet, View, ScrollView } from "react-native";
-
+import { useContext } from "react";
+import { CertifContext } from "../certificate_screen";
+import RenderHtml from "react-native-render-html";
 export default function Description() {
+  const {data} = useContext(CertifContext);
+  const source = {
+    html: data.deskripsi,
+  };
+  const mixedStyle = {
+    body: {
+      // whiteSpace: 'normal',
+      // color: '#aaa'
+      // fontSize:12
+      textAlign: "justify",
+    },
+    p: {
+      // fontSize:25
+    },
+  };
   return (
     <ScrollView>
       <View style={{ padding: 15, gap: 15 }}>
         <View style={styles.txt1}>
           <Text style={styles.txt2}>Deskirpsi</Text>
-          <Text
-          // style={styles.txtInput}
-          >
-            Pelatihan + International Certification Internet of Things
-            Specialist for Business Professionals Assosiate (IOTBIZ) 4 hari
-            dengan rincian sebagai berikut, 1. 2 Hari Pelatihan Langsung Dengan
-            Instruktur Secara Online/Daring 2. 1 Hari Latihan Ujian Sertifikasi
-            (Try Out) 3. 1 Hari Ujian International Certification Internet of
-            Things Specialist for Business Professionals Assosiate (IOTBIZ)
-            Fasilitas Yang Didapatkan: 1. Pelatihan Intensive International
-            Certification Internet of Things Specialist for Business
-            Professionals Assosiate (IOTBIZ) tatap muka langsung dengan
-            instruktur secara Online/Daring 2. Modul pembelajaran lengkap +
-            video rekaman hasil belajar yang dapat diakses selamanya 3.
-            Sertifikat pelatihan Bisa AI Academy 4. International Certification
-            Internet of Things Specialist for Business Professionals Assosiate
-            (IOTBIZ) (Jika Dinyatakan Kompeten) 5. Grup Diskusi WhatsApp peserta
-            dan pengajar6. Bebas konsultasi kapanpun dengan instruktur selama
-            pelatihan 7. Akses Premium Course Bisa AI Academy Jadwal
-            Pelaksanaan: Pelatihan:13-14 Maret 2022 Try Out: 15 Maret 2022 Ujian
-            Sertifikasi: 16 Maret 2022 Atau Tentukan Jadwal Pelatihan dan Ujian
-            Sesukamu Kapan Saja Dengan Tambahan Biaya Rp. 200.000, Informasi
-            Pendaftaran: 08975695649 (Rizky)
-          </Text>
+          <RenderHtml source={source} tagsStyles={mixedStyle} />
         </View>
       </View>
     </ScrollView>

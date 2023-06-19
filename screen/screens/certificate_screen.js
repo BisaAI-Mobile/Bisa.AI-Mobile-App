@@ -13,6 +13,8 @@ import Tugas from "./componen/tugas";
 import Diskusi from "./componen/diskusi";
 import Description from "./componen/description";
 import Course from "./componen/courses";
+import RenderHtml from "react-native-render-html";
+import { createContext } from "react";
 // import Diskusi from "./componen/diskusi";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -47,7 +49,7 @@ export function TabStack() {
           backgroundColor: "#00bfff",
           height: 60,
           margin: 10,
-          width: 120,
+          // width: 120,
           marginTop: 30,
           borderRadius: 20,
           // zIndex: '3'
@@ -86,13 +88,13 @@ export function TabStack() {
           tabBarLabel: "Course",
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Tugas"
         component={Tugas}
         options={{
           tabBarLabel: "Tugas",
         }}
-      />
+      /> */}
       {/* <Tab.Screen
         name="Diskusi"
         component={Diskusi}
@@ -104,8 +106,26 @@ export function TabStack() {
   );
 }
 
-function CertificateDetail() {
+export const CertifContext = createContext();
+function CertificateDetail({ route }) {
+  const { data } = route.params;
+  const source = {
+    html: data.info_singkat,
+  };
+  const mixedStyle = {
+    body: {
+      // whiteSpace: 'normal',
+      // color: '#aaa'
+      // fontSize:12
+      textAlign: "justify",
+    },
+  };
   return (
+    <CertifContext.Provider
+    value={{
+      data
+    }}
+    >
     <View style={{ width: windowWidth, height: windowHeight }}>
       <View
         style={
@@ -118,39 +138,37 @@ function CertificateDetail() {
         <View
           style={{
             justifyContent: "center",
+            paddingTop:10,
             alignItems: "center",
             backgroundColor: "rgb(132, 207, 240)",
           }}
-        >
+          >
           {/* <Image
             style={styles.imageStyle}
             source={require("../assets/images/detailcourse.png")}
-          />
-          <View>
+            />
+            <View>
             <Text style={styles.txtUppper}>Penyusun</Text>
             <Text style={styles.txtBottom}>ACADEMY</Text>
-          </View>
-          <View>
+            </View>
+            <View>
             <Text style={styles.txtUppper}>Level</Text>
             <Text style={styles.txtBottom}>Pemula</Text>
           </View> */}
           <Image
             style={{ width: 45, height: 47 }}
             source={require("../assets/images/logosplash1.png")}
-          />
+            />
           <View>
             <Text style={styles.textTitle}>
               Pelatihan + International Certification
             </Text>
-            <Text style={styles.textTitle1}>
-              Program ini merupakan program pelatihan dan sertifikasi kompetensi
-              level internasional. Dimana anda akan mengikuti pelatihan selama 3
-              hari penuh secara online langsung dengan instruktur, kemudian anda
-              akan mengikuti Ujian Try Out .
-            </Text>
+            <View style={{padding:10}}>
+              <RenderHtml source={source} tagsStyles={mixedStyle} />
+            </View>
           </View>
           <View style={{ padding: 5 }}>
-            <Text style={styles.textTitle2}>Rp 1.800.000</Text>
+            <Text style={styles.textTitle2}>Rp {data.harga}</Text>
           </View>
           <View style={{ paddingBottom: 5 }}>
             <Text style={styles.textTitle3}>
@@ -175,10 +193,11 @@ function CertificateDetail() {
             name="TabStack"
             component={TabStack}
             options={{ title: "Top Bar" }}
-          />
+            />
         </Stack.Navigator>
       </NavigationContainer>
     </View>
+</CertifContext.Provider>
   );
 }
 const styles = StyleSheet.create({

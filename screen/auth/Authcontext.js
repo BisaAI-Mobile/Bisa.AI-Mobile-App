@@ -75,7 +75,7 @@ export const AuthProvider = ({children}) => {
 
     axios
       .post(
-        `${BASE_URL}/logout`,
+        `https://bisa.ai/login_customer/logout`,
         {},
         {
           headers: {Authorization: `Bearer ${userInfo.access_token}`},

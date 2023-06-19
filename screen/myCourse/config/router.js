@@ -24,6 +24,7 @@ import {
 import CourseCard from "../../components/CourseCard";
 import CourseTab from "../../screens/detail_course";
 import Info from "../../screens/componen/info";
+import CourseMyLearningPath from "../screen/CourseMyLearningPath";
 // import { useRoute } from '@react-navigation/native';
 // const state = useNavigationState(state => state);
 // const routeName = (state.routeNames[state.index]);
@@ -103,14 +104,14 @@ export default function TabStack() {
         />
         <Tab.Screen
           name="MyMasterClass"
-          component={MyMasterClass}
+          component={MyLearningPath}
           options={{
             tabBarLabel: "Master Class",
           }}
         />
         <Tab.Screen
-          name="MyLearningPath"
-          component={MyLearningPath}
+          name="LearnPathStack"
+          component={LearnPathStack}
           options={{
             tabBarLabel: "Learning Path",
           }}
@@ -118,6 +119,20 @@ export default function TabStack() {
       </Tab.Navigator>
     </View>
   );
+}
+function LearnPathStack(){
+  return(
+    <NavigationContainer independent={true}>
+      <Stack.Navigator 
+      initialRouteName="learningPath" // Add this to set initial screen
+      screenOptions={{
+            headerShown: false,
+          }}>
+        <Stack.Screen name="learningPath" component={MyMasterClass}/>
+        <Stack.Screen name="coursepath" component={CourseMyLearningPath}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
 export function FreeCourseTab() {
   return (

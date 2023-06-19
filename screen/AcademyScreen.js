@@ -5,15 +5,15 @@ import AcademyClass from "./components/Academy";
 import AcademySpecial from "./components/academySpecial";
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const special =[
-  {uri: require("../assets/images/special1.png"), nama:'Prakerja', desc:'+50 course GRATIS untuk kamu memulai Belajar'},
-  {uri: require("../assets/images/special2.png"), nama:'Kampus Merdeka', desc:'+50 course GRATIS untuk kamu memulai Belajar'},
-  {uri: require("../assets/images/special3.png"), nama:'Portofolio', desc:'+50 course GRATIS untuk kamu memulai Belajar'},
+  {uri: require("../assets/images/special1.png"), nama:'Prakerja', desc:'+50 course GRATIS untuk kamu memulai Belajar', w:80,h:40},
+  {uri: require("../assets/images/special2.png"), nama:'Kampus Merdeka', desc:'+50 course GRATIS untuk kamu memulai Belajar',w:80, h:80},
+  {uri: require("../assets/images/special3.png"), nama:'Portofolio', desc:'+50 course GRATIS untuk kamu memulai Belajar', w:80, h:80},
 ]
 const recmaster =[
   {uri: require("../assets/images/FreeCourse.png"), nama:'Free Course', desc:'+50 course GRATIS untuk kamu memulai Belajar', screen:'free'},
   {uri: require("../assets/images/MasterClass.png"), nama:'Master Class', desc:'+50 course GRATIS untuk kamu memulai Belajar', screen:'master'},
   {uri: require("../assets/images/MasterClassOJT.png"), nama:'Master Class+OJT', desc:'+50 course GRATIS untuk kamu memulai Belajar', screen:'masterojt'},
-  {uri: require("../assets/images/LearningPath.png"), nama:'Learning Path', desc:'+50 course GRATIS untuk kamu memulai Belajar', screen:'free'},
+  {uri: require("../assets/images/LearningPath.png"), nama:'Learning Path', desc:'+50 course GRATIS untuk kamu memulai Belajar', screen:'learn'},
 ]
 export default function AcademyScreen() {
     return (
@@ -50,7 +50,7 @@ export default function AcademyScreen() {
             <View style={{flexDirection: 'row', justifyContent:'space-between', gap:30, paddingLeft:0, backgroundColor: '#f8f8ff', height:150}}>
                   {special.map((course) => {
                     return (
-                      <AcademySpecial special={course}/>
+                      <AcademySpecial special={course} we={course.w} he={course.h}/>
                     );
                   })}
             </View>

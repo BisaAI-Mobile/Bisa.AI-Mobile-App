@@ -22,6 +22,7 @@ import {
 import CourseCard from "./components/CourseCard";
 import Certificate from "./components/Certificate";
 import CertificateDetail from "./screens/certificate_screen";
+import CertificateInt from "./components/IntlCertificate";
 // import { useRoute } from '@react-navigation/native';
 // const state = useNavigationState(state => state);
 // const routeName = (state.routeNames[state.index]);
@@ -89,8 +90,8 @@ export function TabStack() {
           }}
         />
         <Tab.Screen
-          name="MyMasterClass"
-          component={MyMasterClass}
+          name="Certifint"
+          component={CertificateInt}
           options={{
             tabBarLabel: "Sertifikasi Internasional",
           }}

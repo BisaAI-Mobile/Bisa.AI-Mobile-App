@@ -1,11 +1,11 @@
 // React Native Tab
 // https://aboutreact.com/react-native-tab/
-import * as React from 'react';
+import * as React from "react";
 import SelectDropdown from "react-native-select-dropdown";
 import filter from "lodash.filter";
 import { ListItem, SearchBar } from "react-native-elements";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { Searchbar } from 'react-native-paper';
+import { Searchbar } from "react-native-paper";
 import {
   View,
   Text,
@@ -17,82 +17,71 @@ import {
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 import { LinearGradient } from "expo-linear-gradient";
-import CourseCard from './components/CourseCard';
-const reccourse = [
-  {
-    uri: require("../assets/images/course.png"),
-    logo: require("../assets/images/courselogo.png"),
-    nama: "Data Science",
-    price:'FREE',
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../assets/images/course.png"),
-    logo: require("../assets/images/courselogo.png"),
-    nama: "Data Science",
-    price:'FREE',
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../assets/images/course.png"),
-    logo: require("../assets/images/courselogo.png"),
-    nama: "Data Science",
-    price:'FREE',
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../assets/images/course.png"),
-    logo: require("../assets/images/courselogo.png"),
-    nama: "Data Science",
-    price:'FREE',
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../assets/images/course.png"),
-    logo: require("../assets/images/courselogo.png"),
-    nama: "Data Science",
-    price:'FREE',
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../assets/images/course.png"),
-    logo: require("../assets/images/courselogo.png"),
-    nama: "Data Science",
-    price:'FREE',
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../assets/images/course.png"),
-    logo: require("../assets/images/courselogo.png"),
-    nama: "Data Science",
-    price:'FREE',
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../assets/images/course.png"),
-    logo: require("../assets/images/courselogo.png"),
-    nama: "Data Science",
-    price:'FREE',
-    stars: "5,0",
-    silabus: "6",
-  },
-];
+import CourseCard from "./components/CourseCard";
+import { useNavigation } from "@react-navigation/native";
+import { useState, useEffect, useContext } from "react";
+import LearningPathCard from "./components/LearningPathCard";
+export default function LearningPath() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const onChangeSearch = (query) => setSearchQuery(query);
+  const navigation = useNavigation();
+  const [data, setData] = useState([]);
+  // const [opsi, setOpsi]= useState('Terpopuler')
+  // function Change (e){
+  //   setOpsi(e.value)
+  // }
+  // const test='react'
+  const url =
+    "https://gate.bisaai.id/elearning2/learning_path/get_learning_path?is_aktif=1";
+
+  useEffect(() => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append(
+      "Authorization",
+      "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IjEyMzg4IzQiLCJpYXQiOjE2ODUwMDgwNjYsIm5iZiI6MTY4NTAwODA2NiwiZXhwIjoxNjg3NjAwMDY2fQ.1G3ccMMUlIOXYx6AmG8DoHlhqTMud67Hx7whD4GFsTc"
+    );
+
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+    // if(search==null){
+    //   var url = 'https://gate.bisaai.id/elearning2/course/get_course?is_aktif=1&is_free=1'
+    //   if(sort==='pop'){
+    //     url = '&order_by_number_of_student=desc'
+    //   }
+    //   else if(sort==='baru'){
+    //     url == 'https://gate.bisaai.id/elearning2/course/get_course?is_aktif=1&is_free=1'
+    //   }
+    // }
+    // else{
+    //   url = 'https://gate.bisaai.id/elearning2/course/get_course?is_aktif=1&is_free=1&q='+searchQuery
+    //   if(sort==='pop'){
+    //     url = '&order_by_number_of_student=desc'
+    //   }
+    //   else if(sort==='baru'){
+    //     url == 'https://gate.bisaai.id/elearning2/course/get_course?is_aktif=1&is_free=1&q='+searchQuery
+    //   }
+    // }
+    fetch(url, requestOptions)
+      .then((response) => response.json())
+      .then((json) => setData(json.data))
+      .catch((error) => console.log("error", error));
+  }, [searchQuery]);
 const BarSearch = () => {
-  const [searchQuery, setSearchQuery] = React.useState('');
-
-  const onChangeSearch = query => setSearchQuery(query);
-
   return (
     <View>
       <Searchbar
-        style={{width:240, height:37,alignItems:'center', borderWidth:1,borderColor:'grey', backgroundColor:'white'}}
+        style={{
+          width: 240,
+          height: 37,
+          alignItems: "center",
+          borderWidth: 1,
+          borderColor: "grey",
+          backgroundColor: "white",
+        }}
         placeholder="Search"
         onChangeText={onChangeSearch}
         value={searchQuery}
@@ -101,30 +90,50 @@ const BarSearch = () => {
   );
 };
 const countries = ["Terpopuler", "Terbaru"];
-export default function LearningPath() {
-    return (
-      <View style={{ width: windowWidth, height: windowHeight }}>
-        <LinearGradient
-          colors={["#87cefa", "#f8f8ff"]}
-          style={styles.linearGradient}
+  return (
+    <View style={{ width: windowWidth, height: windowHeight }}>
+      <LinearGradient
+        colors={["#87cefa", "#f8f8ff"]}
+        style={styles.linearGradient}
+      >
+        <View
+          style={{
+            flex: 1,
+            height: 170,
+            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+            paddingTop: 20,
+          }}
         >
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              flexDirection: "column",
-              alignItems: "center",
-              paddingTop: 50,
-            }}
-          >
-            <Image
-              source={require("../assets/images/FreeCourse.png")}
-              style={{ height: 100, width: 100 }}
+          <Image
+            source={require("../assets/images/FreeCourse.png")}
+            style={{ height: 100, width: 100 }}
+          />
+          <Text style={styles.textTitle}>Learning Path</Text>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            gap: 20,
+            height: 60,
+            justifyContent: "center",
+          }}
+        >
+          <Searchbar
+              style={{
+                width: 240,
+                height: 50,
+                alignItems: "center",
+                justifyContent: "center",
+                borderWidth: 1,
+                borderColor: "grey",
+                backgroundColor: "white",
+              }}
+              placeholder="Search"
+              onChangeText={onChangeSearch}
+              value={searchQuery}
             />
-            <Text style={styles.textTitle}>My Course</Text>
-          </View>
-          <View style={{flexDirection:'row',gap:20,height:40, justifyContent:'center'}}>
-          <BarSearch/>
           <View>
             <SelectDropdown
               data={countries}
@@ -157,19 +166,19 @@ export default function LearningPath() {
               // searchPlaceHolder={'filter'}
             />
           </View>
-          </View>
-        </LinearGradient>
-        <View style={styles.container}>
-          <ScrollView
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              // width:'100%'
-            }}
-            >
-            {/* <View
+        </View>
+      </LinearGradient>
+      <View style={styles.container}>
+        <ScrollView
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            // width:'100%'
+          }}
+        >
+          {/* <View
               style={{
                 flexDirection: "column",
                 justifyContent: "space-between",
@@ -179,18 +188,19 @@ export default function LearningPath() {
                 backgroundColor: "red",
               }}
             > */}
-              {reccourse.map((course) => {
-                return (
-                  <View style={{flexDirection:'row', width:'50%'}}>
-                    <CourseCard kelas={course}/>
-                  </View>
-              )})}
-            {/* </View> */}
-          </ScrollView>
-        </View>
+          {data.map((course) => {
+            return (
+              <View style={{ flexDirection: "row", width: "50%" }}>
+                <LearningPathCard kelas={course} />
+              </View>
+            );
+          })}
+          {/* </View> */}
+        </ScrollView>
       </View>
-    );
-  }
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   linearGradient: {

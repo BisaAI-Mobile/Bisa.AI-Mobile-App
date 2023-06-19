@@ -91,7 +91,7 @@ export default function SilabusPage({route}) {
                 }}
               >
                 <Text style={styles.text3}>
-                  Data Science: {data.name}
+                  {data.name}
                 </Text>
               </View>
               <View

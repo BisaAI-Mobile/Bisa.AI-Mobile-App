@@ -1,13 +1,13 @@
 import { View, Text, Image, StyleSheet, Pressable, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { height } from "@fortawesome/free-solid-svg-icons/faMugSaucer";
-const TopCourse = ({ kelas }) => {
+const TopMaster = ({ kelas }) => {
     const navigation=useNavigation();
     const linkurl='https://gate.bisaai.id/elearning2/course/media/'
     return(
         <Pressable
         onPress={() =>
-            navigation.navigate("detail", {
+            navigation.navigate("masterdet", {
               data: kelas,
             })
           }
@@ -55,4 +55,4 @@ const styles = StyleSheet.create({
         color: 'black',
       },
 })
-export default TopCourse;
+export default TopMaster;

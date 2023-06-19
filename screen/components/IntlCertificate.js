@@ -1,5 +1,3 @@
-// React Native Tab
-// https://aboutreact.com/react-native-tab/
 import * as React from "react";
 import SelectDropdown from "react-native-select-dropdown";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -21,10 +19,10 @@ import SertCard from "./SertifCard";
 
 const linkurl='https://gate.bisaai.id/elearning2/course/media/'
 const countries = ["Egypt", "Canada", "Australia", "Ireland"];
-const Certificate = () => {
+const CertificateInt = () => {
   const [data, setData] = useState([]);
   const url =
-    "https://gate.bisaai.id/elearning2/certification/get_certification?tipe=2";
+    "https://gate.bisaai.id/elearning2/certification/get_certification?tipe=1";
     const {userInfo} = useContext(AuthContext);
   useEffect(() => {
     var myHeaders = new Headers();
@@ -108,7 +106,7 @@ const Certificate = () => {
           }}
         >
           {data.map((course) => {
-            return <SertCard kelas={course}/>
+            return <SertCard kelas={course} screenName={'detailsertif'}/>
           })}
         </View>
       </ScrollView>
@@ -160,4 +158,4 @@ const styles = StyleSheet.create({
   dropdown1RowTxtStyle: { color: "#444", textAlign: "left" },
   divider: { width: 12 },
 });
-export default Certificate;
+export default CertificateInt;

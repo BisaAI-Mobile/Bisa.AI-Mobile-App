@@ -23,6 +23,7 @@ const MasterCard = ({ kelas, item, par }) => {
   }).format(value);
   const navigation = useNavigation();
   const linkurl='https://gate.bisaai.id/elearning2/course/media/'
+  const linkclient='https://gate.bisaai.id/elearning2/client/media/'
   return (
     <View style={styles.buttonShadow}>
       <View
@@ -44,13 +45,16 @@ const MasterCard = ({ kelas, item, par }) => {
           style={{
             flexDirection: "column",
             justifyContent: "flex-start",
-            gap: 6,
+            // gap: 6,
           }}
         >
           <ScrollView style={{ height: 50 }} showsVerticalScrollIndicator={false}>
             <Text style={styles.text}>{kelas.name}</Text>
           </ScrollView>
-          <Image source={kelas.photo_client}></Image>
+          <Image
+          source={{uri:`${linkclient}${kelas.photo_client}`}}
+          style={{ height: 20, width: 20}}
+          />
           <Rating stars={kelas.rating} maxStars={5} size={17} />
           {/* <View style={{ flexDirection: "row" }}>
             <Image source={require("../../assets/images/bintang.png")}></Image>

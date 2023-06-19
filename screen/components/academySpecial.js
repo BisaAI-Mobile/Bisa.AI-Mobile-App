@@ -1,10 +1,10 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 
-const AcademySpecial = ({ special }) => {
+const AcademySpecial = ({ special, he, we }) => {
     return(
         <View style={styles.buttonShadow}>
             <View style={{backgroundColor:'white', width:290, height:120, padding:7, flexDirection:'row', paddingTop:20, borderRadius: 10}}>
-                <Image source={(special.uri)} style={{width:80, height:80}}/>
+                <Image source={(special.uri)} style={{width:80, height:80, resizeMode: 'contain'}}/>
                 <View style={{ flexDirection:"column", justifyContent:'flex-start', paddingLeft:7, gap:5, paddingTop:4, width:190}}>
                     <Text style={styles.text}>{special.nama}</Text>
                     <Text>{special.desc}</Text>

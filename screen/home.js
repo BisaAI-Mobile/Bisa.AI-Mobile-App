@@ -18,6 +18,7 @@ import TopCourse from "./components/topCourse";
 import NavbarSertif from "./TabSertif";
 import { AuthContext } from "./auth/Authcontext";
 import MenuButton from "./components/menuButton";
+import TopMaster from "./components/topMasterCourse";
 const DEVICE_WIDTH = Dimensions.get("window").width;
 // const IMAGES = ['./images/3.png','../images/2.png', '../images/1.png']
 const GAMBAR = [
@@ -116,28 +117,50 @@ export default function HomeScreen({ navigation }) {
   //   setToken(userToken);
   // };
   //BENAR
-  // useEffect(() => {
-  //   var myHeaders = new Headers();
-  //   // var token = window.sessionStorage.getItem("token");
+  useEffect(() => {
+    var myHeaders = new Headers();
+    // var token = window.sessionStorage.getItem("token");
     
-  //   myHeaders.append("Content-Type", "application/json");
-  //   myHeaders.append(
-  //     "Authorization",
-  //     `JWT ${userInfo.access_token}`
-  //   );
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append(
+      "Authorization",
+      `JWT ${userInfo.access_token}`
+    );
 
-  //   var requestOptions = {
-  //     method: "GET",
-  //     headers: myHeaders,
-  //     redirect: "follow",
-  //   };
-  //   fetch(url1, requestOptions)
-  //     .then((response) => response.json())
-  //     .then((json) => 
-  //     setData(json.data))
-  //     .catch((error) => console.log("error", error));
-  //   // [searchQuery];
-  // });
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+    fetch(url, requestOptions)
+      .then((response) => response.json())
+      .then((json) => 
+      setData(json.data))
+      .catch((error) => console.log("error", error));
+    // [searchQuery];
+  },[]);
+  useEffect(() => {
+    var myHeaders = new Headers();
+    // var token = window.sessionStorage.getItem("token");
+    
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append(
+      "Authorization",
+      `JWT ${userInfo.access_token}`
+    );
+
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+    fetch(url1, requestOptions)
+      .then((response) => response.json())
+      .then((json) => 
+      setData1(json.data))
+      .catch((error) => console.log("error", error));
+    // [searchQuery];
+  },[]);
   //BENAR
   return (
     <ScrollView style={{ backgroundColor: "#f8f8ff" }}>
@@ -156,7 +179,7 @@ export default function HomeScreen({ navigation }) {
           >
             <Image
               source={require("../assets/images/logo.png")}
-              style={{ height: 49, width: 50 }}
+              style={{ height: 49, width: 50 , resizeMode:'contain'}}
             />
             <View style={{ paddingLeft: 15 }}>
               <Text style={styles.textWelcome}>Selamat Datang!</Text>
@@ -235,7 +258,7 @@ export default function HomeScreen({ navigation }) {
                     <Text style={styles.text}>Certificate</Text>
                   </View>
                 </Pressable>
-                <Pressable style={styles.buttonShadow} onPress={() => navigation.navigate("myFree")}>
+                <Pressable style={styles.buttonShadow} onPress={() => navigation.navigate("learn")}>
                   <View style={styles.buttonContainer}>
                     <Image source={require("../assets/images/button4.png")} />
                     <Text style={styles.text}>Learning Path</Text>
@@ -325,9 +348,9 @@ export default function HomeScreen({ navigation }) {
                 height: 150,
               }}
             >
-              {/* {data1.map((course) => {
-                return <TopCourse kelas={course} />;
-              })} */}
+              {data1.map((course) => {
+                return <TopMaster kelas={course} />;
+              })}
             </View>
           </ScrollView>
         </View>

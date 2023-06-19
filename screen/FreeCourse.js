@@ -109,8 +109,10 @@ export default function FreeCourse() {
       .then((json) => 
       setData(json.data))
       .catch((error) => console.log("error", error));
-    [searchQuery];
-  });
+      [searchQuery];
+    }
+    )
+    ;
 
   // const BarSearch = () => {
 
@@ -199,7 +201,7 @@ export default function FreeCourse() {
       <View style={styles.container}>
         <ScrollView
           showsHorizontalScrollIndicator={false}
-          style={{ height: 570 }}
+          style={{ height: 600 }}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             flexDirection: "row",

@@ -43,7 +43,14 @@ import NavbarSertif from "./screen/TabSertif";
 import MasterDetail from "./screen/myCourse/screen/MasterDetail";
 import { AuthProvider } from "./screen/auth/Authcontext";
 import Info from "./screen/screens/componen/info";
+import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+// import { Ionicons } from '@expo/vector-icons';
 import MasterOJT from "./screen/MasterClassOjt";
+import LearningPathDetail from "./screen/myCourse/screen/LearningDetail";
+import LearnDetail from "./screen/myCourse/screen/LearningDetail";
+import PaymentFree from "./screen/myCourse/screen/FreePayment";
 // import TabCourse from "./screen/myCourse/screen/detail_course";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -90,10 +97,12 @@ export function HomeStack() {
       <Stack.Screen name="learn" component={LearningPath} />
       <Stack.Screen name="master" component={MasterClass} />
       <Stack.Screen name="detail" component={DetailPage} />
+      <Stack.Screen name="learndetail" component={LearnDetail} />
       <Stack.Screen name="pay" component={PaymentPage} />
       <Stack.Screen name="myFree" component={MyFreeCourse} />
       <Stack.Screen name="myMaster" component={MyMasterClass} />
       <Stack.Screen name="myLearn" component={MyLearningPath} />
+      <Stack.Screen name="freepay" component={PaymentFree} />
       {/* <Stack.Screen name="myAcad" component={TopNavbar} /> */}
       {/* <Stack.Screen name="TopNavbar" component={TopNavbar} /> */}
       <Stack.Screen name="Profile" component={Profile} />
@@ -136,6 +145,10 @@ export function TabNavigator() {
             }
             return;
           })(route),
+          tabBarLabel: "Academy",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="ios-home-sharp" size={24} color={color} />
+          ),
         })}
       />
       <Tab.Screen
@@ -143,9 +156,9 @@ export function TabNavigator() {
         component={AcademyScreen}
         options={{
           tabBarLabel: "Academy",
-          // tabBarIcon: ({ color, size }) => (
-          //   <MaterialCommunityIcons name="home" color={color} size={size} />
-          // ),
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="computer" size={24} color={color} />
+          ),
         }}
       />
       <Tab.Screen
@@ -155,11 +168,15 @@ export function TabNavigator() {
           tabBarStyle: ((route) => {
             const routeName = getFocusedRouteNameFromRoute(route) ?? "";
             console.log(routeName);
-            if (routeName === "myFree") {
+            if (routeName !== "MyCourseScreen") {
               return { display: "none" };
             }
             return;
           })(route),
+          tabBarLabel: "My Course",
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="book" size={24} color={color} />
+          ),
         })}
       />
       <Tab.Screen
@@ -167,13 +184,9 @@ export function TabNavigator() {
         component={Profile}
         options={{
           tabBarLabel: "Profile",
-          // tabBarIcon: ({ color, size }) => (
-          //   <MaterialCommunityIcons
-          //     name="home"
-          //     color={color}
-          //     size={size}
-          //   />
-          // ),
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person" size={24} color={color} />
+          ),
         }}
       />
     </Tab.Navigator>

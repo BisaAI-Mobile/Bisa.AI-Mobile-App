@@ -99,7 +99,7 @@ const Item = ({ cara }) => (
     <Text>- {cara}</Text>
   </View>
 );
-export default function PaymentPage({route}) {
+export default function PaymentFree({route}) {
   const { data } = route.params;
   const { userInfo } = useContext(AuthContext);
   const navigation = useNavigation();
@@ -166,7 +166,7 @@ export default function PaymentPage({route}) {
     <View style={{ flex: 1 }}>
       <View
         style={{
-          height: 120,
+          // height: 120,
           flexDirection: "row",
           justifyContent: "space-between",
           paddingTop: 50,
@@ -277,106 +277,27 @@ export default function PaymentPage({route}) {
                     >
                       <View
                         style={{
-                          backgroundColor: one,
+                          backgroundColor: "rgb(0, 74, 173)",
                           borderRadius: 25,
                           overflow: "hidden",
+                          width:100,
                           gap: 7,
                           height: 40,
                           padding: 9,
                           flexDirection: "row",
                           alignItems: "center",
+                          justifyContent:'center'
                           // justifyContent:'center'
                         }}
                       >
-                        <Image
+                        {/* <Image
                           source={require("../../../assets/images/Bayarin.png")}
                           style={{ height: 20, width: 20 }}
-                        />
-                        <Text style={styles.textButton}>BayarinInd</Text>
+                        /> */}
+                        <Text style={styles.textButton}>Daftar Gratis</Text>
                       </View>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.buttonShadow}
-                      onPress={() => shopp()}
-                    >
-                      <View
-                        style={{
-                          backgroundColor: two,
-                          borderRadius: 25,
-                          overflow: "hidden",
-                          gap: 7,
-                          height: 40,
-                          padding: 9,
-                          flexDirection: "row",
-                          alignItems: "center",
-                          // justifyContent:'center'
-                        }}
-                      >
-                        <Image
-                          source={require("../../../assets/images/Shopee.png")}
-                          style={{ height: 20, width: 20 }}
-                        />
-                        <Text style={styles.textButton}>ShopeePay</Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                  <View
-                    style={{
-                      flex: 1,
-                      flexDirection: "column",
-                      padding: 13,
-                      justifyContent: "space-around",
-                      height: 130,
-                    }}
-                  >
-                    <TouchableOpacity
-                      style={styles.buttonShadow}
-                      onPress={() => dana()}
-                    >
-                      <View
-                        style={{
-                          backgroundColor: three,
-                          borderRadius: 25,
-                          overflow: "hidden",
-                          gap: 7,
-                          height: 40,
-                          padding: 9,
-                          flexDirection: "row",
-                          alignItems: "center",
-                          // justifyContent:'center'
-                        }}
-                      >
-                        <Image
-                          source={require("../../../assets/images/Dana.png")}
-                          style={{ height: 23, width: 81 }}
-                        />
-                        {/* <Text style={styles.textButton}></Text> */}
-                      </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.buttonShadow}
-                      onPress={() => linka()}
-                    >
-                      <View
-                        style={{
-                          backgroundColor: four,
-                          borderRadius: 25,
-                          overflow: "hidden",
-                          gap: 7,
-                          height: 40,
-                          padding: 9,
-                          flexDirection: "row",
-                          alignItems: "center",
-                          // justifyContent:'center'
-                        }}
-                      >
-                        <Image
-                          source={require("../../../assets/images/LinkAja.png")}
-                          style={{ height: 20, width: 20 }}
-                        />
-                        <Text style={styles.textButton}>LinkAja</Text>
-                      </View>
-                    </TouchableOpacity>
+                    
                   </View>
                 </View>
               </View>
@@ -586,11 +507,12 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   textButton: {
+    color: "white",
     fontSize: 18,
     lineHeight: 21,
     fontWeight: "400",
     letterSpacing: 0.25,
-    color: "black",
+    // color: "black",
   },
   buttonShadow: {
     borderRadius: 25,

@@ -11,44 +11,31 @@ import CourseTab from "../../screens/detail_course";
 import { useState, useContext, useEffect, createContext } from "react";
 import { Button } from "react-native-elements";
 import { Rating } from "react-native-stock-star-rating";
-const linkurl='https://gate.bisaai.id/elearning2/course/media/'
-export const IdContext = createContext();
-const MyCard = ({ kelas, screenName, children }) => {
+// const linkurl='https://gate.bisaai.id/elearning2/course/media/'
+// export const IdContext = createContext();
+const linkurl='https://gate.bisaai.id/elearning2/learning_path/media/'
+const LearnCard = ({ kelas, screenName, children }) => {
   const [idcrs, setid]=useState([])
   const sett =()=>{
     setid(kelas)
   }
     const navigation = useNavigation();
     return (
-      <IdContext.Provider
-      value={{
-        idcrs
-      }}>
-      {children}
-      {/* <Button onPress={() =>{
-        setid(kelas)
-        console.log(idcrs)
-      }
-    }>
-        aaaa
-      </Button> */}
-    <Pressable onPress={() =>{
-        // setid(kelas.id_course)
-        // console.log(id)
-        navigation.navigate('detailTab', {
-          // screen: 'Silabus',
-          // params:{
-            data:kelas
-          // }
-        },
-        )
-      }
-      
-      // screen:'',
-      // data: kelas,
-      
-    }>
+        // <Pressable onPress={navigation.navigate('coursepath', {
+        //     id:kelas
+        // },
+        // )}>
         <View style={styles.buttonShadow}>
+            {/* <Button 
+            onPress={
+                navigation.navigate('coursepath', {
+                      data:kelas
+                  },
+                  )
+            }
+        >
+                ddddd
+            </Button> */}
           <View
             style={{
               backgroundColor: "white",
@@ -60,11 +47,11 @@ const MyCard = ({ kelas, screenName, children }) => {
               paddingTop: 20,
               borderRadius: 10,
             }}
-            >
+          >
             <Image
-          source={{uri:`${linkurl}${kelas.photo_course}`}}
-          style={{ height: 80, width: 80, alignSelf: "center" }}
-          />
+              source={{ uri: `${linkurl}${kelas.photo_learning_path}` }}
+              style={{ height: 80, width: 80, alignSelf: "center" }}
+            />
             <View
               style={{
                 flexDirection: "column",
@@ -73,24 +60,23 @@ const MyCard = ({ kelas, screenName, children }) => {
                 gap: 5,
                 paddingTop: 4,
               }}
-              >
-                <ScrollView style={{width:200, height:35}}showsVerticalScrollIndicator={false}>
-              <Text style={styles.text}>{kelas.course_name}</Text>
-
-                </ScrollView>
-              <View style={{ flexDirection: "row", gap: 3 }}>
-              <Rating stars={kelas.rating} maxStars={5} size={17} />
-                {/* <Text style={{ fontWeight: "bold" }}>{kelas.rating}</Text> */}
+            >
+              <ScrollView style={{width:200}}>
+              <Text style={styles.text}>{kelas.name_learning_path}</Text>
+              </ScrollView>
+              <View style={{ flexDirection: "row", gap: 3, alignItems:'center' }}>
+              <Image source={require("../../../assets/images/silabus.png")}></Image>
+                <Text style={{ fontWeight: "bold" }}>{kelas.syllabus_count} Silabus</Text>
               </View>
               <View style={{ flexDirection: "row", gap: 3 }}>
-                <Text style={{ fontWeight: "bold" }}>{kelas.arranged_by}</Text>
+                <Text style={{ fontWeight: "bold" }}>
+                  {kelas.silabus}
+                </Text>
               </View>
             </View>
           </View>
         </View>
-      </Pressable>
-      </IdContext.Provider>
-  // </IdContext.Provider>
+        // </Pressable>
     );
   };
 
@@ -120,4 +106,4 @@ const MyCard = ({ kelas, screenName, children }) => {
   });
   //   export default MyFreeCourse;
   
-  export default MyCard
+  export default LearnCard

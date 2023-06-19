@@ -7,40 +7,51 @@ import {
     Pressable,
   } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+const linkurl='https://gate.bisaai.id/elearning2/certification/media/foto_certification/'
 const SertCard = ({ kelas, screenName }) => {
     const navigation = useNavigation();
     return (
-      <Pressable onPress={() => navigation.navigate(screenName)}>
+      <Pressable onPress={() => navigation.navigate('detailsertif',{
+        data:kelas
+      })}>
         <View style={styles.buttonShadow}>
           <View
             style={{
               backgroundColor: "white",
               width: 350,
-              paddingHorizontal: 30,
-              padding: 20,
+              height:140,
+              paddingHorizontal: 10,
+              // padding: 20,
+              gap:10,
               justifyContent: "flex-start",
               flexDirection: "row",
-              paddingTop: 20,
+              paddingTop: 10,
               borderRadius: 10,
+              paddingBottom:20
             }}
           >
-            <Image source={kelas.uri} style={{ width: 80, height: 80 }} />
+            <Image
+          source={{uri:`${linkurl}${kelas.foto}`}}
+          style={{ height: 80, width: 80, resizeMode: 'contain',}}
+          />
             <View
               style={{
                 flexDirection: "column",
-                justifyContent: "flex-start",
+                justifyContent: "center",
                 // paddingLeft: 7,
                 // gap: 5,
                 paddingTop: 4,
               }}
             >
+              <ScrollView style={{height:30, width:240}}>
               <Text style={styles.text}>{kelas.nama}</Text>
+              </ScrollView>
               <View style={{ flexDirection: "row", gap: 3 }}>
-                <Text style={{ fontWeight: "bold" }}>Offered By: {kelas.stars}</Text>
+                <Text style={{ fontWeight: "bold" }}>Offered By: {kelas.nama_partner}</Text>
               </View>
-              <View style={{ flexDirection: "row", gap: 3 }}>
+              {/* <View style={{ flexDirection: "row", gap: 3 }}>
                 <Text style={{ fontWeight: "bold" }}>{kelas.silabus}</Text>
-              </View>
+              </View> */}
             </View>
           </View>
         </View>

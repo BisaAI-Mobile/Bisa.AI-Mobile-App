@@ -155,6 +155,7 @@ export default function MasterClass() {
       </LinearGradient>
       <View style={styles.container}>
         <ScrollView
+        style={{ height: 600 }}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{

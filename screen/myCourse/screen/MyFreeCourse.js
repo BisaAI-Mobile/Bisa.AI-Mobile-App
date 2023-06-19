@@ -15,33 +15,6 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import MyCard from "./FreeCard";
 import { AuthContext } from "../../auth/Authcontext";
-
-const reccourse = [
-  {
-    uri: require("../../../assets/images/course.png"),
-    nama: "Data Science",
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../../../assets/images/course.png"),
-    nama: "Data Science",
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../../../assets/images/course.png"),
-    nama: "Data Science",
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../../../assets/images/course.png"),
-    nama: "Data Science",
-    stars: "5,0",
-    silabus: "6",
-  },
-];
 const MyFreeCourse = () => {
   const [data, setData] = useState([]);
   const {userInfo} = useContext(AuthContext);
@@ -52,7 +25,7 @@ useEffect(() => {
 myHeaders.append("Content-Type", "application/json");
 myHeaders.append("Authorization", `JWT ${userInfo.access_token}`);
 myHeaders.append("is_free", "0");
-myHeaders.append("status", "1");
+// myHeaders.append("status", "1");
 
 var requestOptions = {
   method: 'GET',
@@ -165,46 +138,6 @@ const countries = ["Egypt", "Canada", "Australia", "Ireland"];
     </View>
   );
 };
-// const MyCard = ({ kelas, screenName }) => {
-//   const navigation = useNavigation();
-//   return (
-//     <Pressable onPress={() => navigation.navigate(screenName)}>
-//       <View style={styles.buttonShadow}>
-//         <View
-//           style={{
-//             backgroundColor: "white",
-//             width: 350,
-//             paddingHorizontal: 30,
-//             padding: 20,
-//             justifyContent: "flex-start",
-//             flexDirection: "row",
-//             paddingTop: 20,
-//             borderRadius: 10,
-//           }}
-//         >
-//           <Image source={kelas.uri} style={{ width: 80, height: 80 }} />
-//           <View
-//             style={{
-//               flexDirection: "column",
-//               justifyContent: "flex-start",
-//               paddingLeft: 7,
-//               gap: 5,
-//               paddingTop: 4,
-//             }}
-//           >
-//             <Text style={styles.text}>{kelas.nama}</Text>
-//             <View style={{ flexDirection: "row", gap: 3 }}>
-//               <Text style={{ fontWeight: "bold" }}>{kelas.stars}</Text>
-//             </View>
-//             <View style={{ flexDirection: "row", gap: 3 }}>
-//               <Text style={{ fontWeight: "bold" }}>{kelas.silabus}</Text>
-//             </View>
-//           </View>
-//         </View>
-//       </View>
-//     </Pressable>
-//   );
-// };
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#f8f8ff",

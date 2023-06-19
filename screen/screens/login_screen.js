@@ -30,6 +30,7 @@ const Login = () => {
   const [password, setPassword] = useState(null);
   const navigation = useNavigation();
   const {login} = useContext(AuthContext);
+  
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <KeyboardAvoidingView style={{ flex: 1 }}>
@@ -107,7 +108,9 @@ const Login = () => {
               /> */}
               <View style={{ paddingTop: 230, flexDirection: "row" }}>
                 <Text style={styles.buttomText}>Dont't have an account? </Text>
-                <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+                <TouchableOpacity onPress={() => navigation.navigate("Signup", {
+                    // data: kelas,
+                  })}>
                   <Text style={styles.signText}>Sign up here</Text>
                 </TouchableOpacity>
               </View>

@@ -7,19 +7,31 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
+import { DetailContext } from "../detail_course";
+import { useContext } from "react";
+import RenderHTML from "react-native-render-html";
 export default function Tugas() {
+  const { data } = useContext(DetailContext);
   const navigation = useNavigation();
+  const source = {
+    html: data.task_description_course,
+  };
+  const mixedStyle = {
+    body: {
+      // whiteSpace: 'normal',
+      // color: '#aaa'
+      // fontSize:12
+      textAlign: "justify",
+    },
+  };
+
   return (
     <ScrollView>
       <View style={{ padding: 15, gap: 15 }}>
         <Text style={styles.txt1}>Tugas</Text>
         <View>
           <View style={styles.view1}>
-            <Text style={styles.txt2}>
-              Buatlah rangkuman dari materi Dasar - Dasar ReactJS. Maksimal 1
-              halaman per silabus. Kumpulkan dalam bentuk PDF.
-            </Text>
+            <RenderHTML source={source} tagsStyles={mixedStyle} />
           </View>
         </View>
         <TouchableOpacity
@@ -49,7 +61,7 @@ const styles = StyleSheet.create({
   },
   loginBtn: {
     color: "white",
-    backgroundColor: "blue",
+    backgroundColor: "rgb(0, 74, 173)",
     borderRadius: 15,
     height: 50,
     alignItems: "center",

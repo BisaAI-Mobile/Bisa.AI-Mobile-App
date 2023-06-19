@@ -4,6 +4,7 @@ import {
   Image,
   Text,
   StyleSheet,
+  FlatList,
   ScrollView,
 } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -14,41 +15,15 @@ import RenderHtml from "react-native-render-html";
 import { Rating } from "react-native-stock-star-rating";
 import { DetailButton } from "../../components/CourseCard";
 import FreeCourse from "../../FreeCourse";
+import { useState, useEffect } from "react";
 // import { useNavigation } from "@react-navigation/native";
-const recmaster = [
-  {
-    photo: require("../../../assets/images/course.png"),
-    name: "Data Science",
-    rating: 5,
-    number_of_syllabus: 6,
-    number_of_students:50
-  },
-  {
-    photo: require("../../../assets/images/course.png"),
-    name: "Data Science",
-    rating: 2,
-    number_of_syllabus: 6,
-    number_of_students:50
-  },
-  {
-    photo: require("../../../assets/images/course.png"),
-    name: "Data Science",
-    rating: 4,
-    number_of_syllabus: 6,
-    number_of_students:50
-  },
-  {
-    photo: require("../../../assets/images/course.png"),
-    name: "Data Science",
-    rating: 5,
-    number_of_syllabus: 6,
-    number_of_students:50
-  },
-];
-const DetailPage = ({ route, navigation }) => {
+
+const LearnDetail = ({ route, navigation }) => {
+  const [datas, setDatas] = useState([]);
+
   const { data } = route.params;
   const source = {
-    html: data.info,
+    html: data.description,
   };
   const mixedStyle = {
     body: {
@@ -61,9 +36,31 @@ const DetailPage = ({ route, navigation }) => {
       // fontSize:25
     },
   };
+  useEffect(() => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append(
+      "Authorization",
+      "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IjEyMzg4IzQiLCJpYXQiOjE2ODUwMDgwNjYsIm5iZiI6MTY4NTAwODA2NiwiZXhwIjoxNjg3NjAwMDY2fQ.1G3ccMMUlIOXYx6AmG8DoHlhqTMud67Hx7whD4GFsTc"
+    );
+
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    fetch(
+      `https://gate.bisaai.id/elearning2/learning_path/get_learning_path_detail?id_learning_path=${data.id_learning_path}`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((json) => setDatas(json.data))
+      .catch((error) => console.log("error", error));
+  }, [data.id]);
   // console.log(id);
   // const navigation = useNavigation();
-  const linkurl='https://gate.bisaai.id/elearning2/course/media/'
+  const linkurl = "https://gate.bisaai.id/elearning2/learning_path/media/";
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -85,38 +82,57 @@ const DetailPage = ({ route, navigation }) => {
       <ScrollView>
         <View style={styles.container}>
           <Image
-            source={{uri:`${linkurl}${data.photo}`}}
+            source={{ uri: `${linkurl}${data.photo}` }}
             style={{ height: 170, width: 170 }}
           />
           <Text style={styles.text}>{data.name}</Text>
-          <Rating stars={data.rating} maxStars={5} size={17} />
-          <View style={{ flexDirection: "row", gap: 15, padding: 4 }}>
-            <View style={{ flexDirection: "row", gap: 3 }}>
-              <Image
-                source={require("../../../assets/images/Population.png")}
-              />
-              <Text style={styles.text2}>
-                Jumlah Peserta : {data.number_of_students}
-              </Text>
-            </View>
-            <View style={{ flexDirection: "row", gap: 3 }}>
-              <Image
-                source={require("../../../assets/images/TotalModul.png")}
-              />
-              <Text style={styles.text2}>
-                Total Modul : {data.number_of_syllabus}
-              </Text>
-            </View>
-          </View>
-          <View style={{ flexDirection: "row", gap: 3 }}>
-            <Image source={require("../../../assets/images/PriceLogo.png")} />
-            <Text style={styles.text2}>Harga Course : {data.price}</Text>
-          </View>
         </View>
         <View style={styles.containertext}>
           <View style={{}}>
             <RenderHtml source={source} tagsStyles={mixedStyle} />
-            <View style={{ height: 20 }}></View>
+            <View
+              style={{
+                justifyContent: "flex-start",
+                gap: 10,
+                paddingTop: 10,
+                paddingBottom: 10,
+              }}
+            >
+              <Text style={{ fontSize: 18, fontWeight: "bold" }}>Detail Course</Text>
+              {datas.map((course, index) => {
+                return (
+                  <View style={styles.buttonShadow} key={index}>
+                    <View
+                      style={{
+                        backgroundColor: "white",
+                        // width: 350,
+                        paddingHorizontal: 30,
+                        padding: 20,
+                        justifyContent: "flex-start",
+                        flexDirection: "row",
+                        paddingTop: 20,
+                        borderRadius: 10,
+                      }}
+                    >
+                      <View
+                        style={{
+                          flexDirection: "column",
+                          justifyContent: "flex-start",
+                          paddingLeft: 7,
+                          gap: 5,
+                          paddingTop: 4,
+                        }}
+                      >
+                        <Text style={{ color: "black" }}>
+                          {course.course_name}
+                        </Text>
+                        <View style={{ flexDirection: "row", gap: 3 }}></View>
+                      </View>
+                    </View>
+                  </View>
+                );
+              })}
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -137,9 +153,11 @@ const DetailPage = ({ route, navigation }) => {
       >
         <Pressable
           style={{ paddingTop: 20 }}
-          onPress={() => navigation.navigate("freepay",{
-            data:data
-          })}
+          onPress={() =>
+            navigation.navigate("pay", {
+              data: data,
+            })
+          }
         >
           <View
             style={{
@@ -201,8 +219,8 @@ const DetailPage = ({ route, navigation }) => {
 // }
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "rgb(39, 50, 70)",
-    height: 270,
+    backgroundColor: "rgb(7, 115, 250)",
+    height: 230,
     flexDirection: "column",
     alignItems: "center",
     borderTopLeftRadius: 20,
@@ -239,5 +257,20 @@ const styles = StyleSheet.create({
     letterSpacing: 0.25,
     color: "black",
   },
+  buttonShadow: {
+    justifyContent: "center",
+    borderRadius: 8,
+    // height: 120,
+    backgroundColor: "transparent",
+    shadowColor: "#000",
+    // width: 350,
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 1,
+    // },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 5,
+  },
 });
-export default DetailPage;
+export default LearnDetail;

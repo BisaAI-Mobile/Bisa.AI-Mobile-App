@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -19,6 +19,7 @@ import { useNavigation } from "@react-navigation/native";
 import { KeyboardAvoidingView } from "react-native";
 import UploadImage from "./hooks/upload_image";
 import DatePicker from "react-native-date-picker";
+import { AuthContext } from "../auth/Authcontext";
 // import DatePicker from "react-native-datepicker";
 // import DateTimePicker from "@react-native-community/datetimepicker";
 import RadioForm, {
@@ -70,6 +71,7 @@ const Editprofile = ({ route }) => {
   //   return date + "-" + month + "-" + year; //format: d-m-y;
   // };
   const { dataProf } = route.params;
+  const {userInfo} = useContext(AuthContext);
   const navigation = useNavigation();
   const [username, setUsername] = useState(`${dataProf.name}`);
   const [name, setName] = useState("");
@@ -83,6 +85,36 @@ const Editprofile = ({ route }) => {
     { label: "Laki-Laki   ", value: 0 },
     { label: "Perempuan", value: 1 },
   ];
+  
+  function UpdateProfile() {
+    // useEffect(() => {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Authorization", `JWT ${userInfo.access_token}`);
+
+      var raw = JSON.stringify({
+        name: username,
+        address: alamat,
+        phone: notelp,
+        educational_background: rpekerjaan,
+      });
+
+      var requestOptions = {
+        method: "PUT",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+
+      fetch(
+        "https://gate.bisaai.id/elearning2/users/update_customer",
+        requestOptions
+      )
+        .then((response) => response.json())
+        .then((json) => console.log(json))
+        .catch((error) => console.log("error", error));
+    // });
+  }
   return (
     <ScrollView>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -239,7 +271,7 @@ const Editprofile = ({ route }) => {
                 <View style={styles.inputCpw}>
                   <TextInput
                     name="notelp"
-                    placeholder="0812345678"
+                    placeholder={dataProf.phone}
                     placeholderTextColor="#808080"
                     keyboardType="number-pad"
                     enablesReturnKeyAutomatically
@@ -252,7 +284,7 @@ const Editprofile = ({ route }) => {
                 <View style={styles.inputBigsize}>
                   <TextInput
                     name="alamat"
-                    placeholder="Alamat"
+                    placeholder={dataProf.address}
                     placeholderTextColor="#808080"
                     enablesReturnKeyAutomatically
                     multiline={true}
@@ -266,7 +298,7 @@ const Editprofile = ({ route }) => {
                 <View style={styles.inputBigsize}>
                   <TextInput
                     name="rpekerjaan"
-                    placeholder="Riwayat Pekerjaan"
+                    placeholder={dataProf.educational_background}
                     placeholderTextColor="#808080"
                     enablesReturnKeyAutomatically
                     multiline={true}
@@ -276,7 +308,11 @@ const Editprofile = ({ route }) => {
                 </View>
                 <TouchableOpacity
                   style={styles.loginBtn}
-                  onPress={() => navigation.navigate("TopNavbar")}
+                  onPress={() => {
+                    UpdateProfile();
+                    // navigation.navigate("TopNavbar");
+                    // console.log
+                  }}
                 >
                   <Text style={styles.loginText}>Save</Text>
                 </TouchableOpacity>

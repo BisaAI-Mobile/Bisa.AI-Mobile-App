@@ -15,9 +15,9 @@ import { ReactNativeNumberFormat } from "./FormatterPrice";
 import { Ionicons } from "@expo/vector-icons";
 import CurrencyFormat from "./FormatterPrice";
 import { Rating } from "react-native-stock-star-rating";
-const CourseCard = ({ kelas, item, foto }) => {
+const LearningPathCard = ({ kelas, item, foto }) => {
   const navigation = useNavigation();
-  const linkurl='https://gate.bisaai.id/elearning2/course/media/'
+  const linkurl='https://gate.bisaai.id/elearning2/learning_path/media/'
   const linkclient='https://gate.bisaai.id/elearning2/client/media/'
   // const photo ={kelas.photo}
   return (
@@ -50,7 +50,7 @@ const CourseCard = ({ kelas, item, foto }) => {
           source={{uri:`${linkclient}${kelas.photo_client}`}}
           style={{ height: 20, width: 20}}
           />
-          <Rating stars={kelas.rating} maxStars={5} size={17} />
+          {/* <Rating stars={kelas.rating} maxStars={5} size={17} /> */}
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
@@ -60,7 +60,7 @@ const CourseCard = ({ kelas, item, foto }) => {
             <View style={styles.buttondetail}>
               <Pressable
                 onPress={() =>
-                  navigation.navigate("detail", {
+                  navigation.navigate("learndetail", {
                     data: kelas,
                   })
                 }
@@ -142,4 +142,4 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
 });
-export default CourseCard;
+export default LearningPathCard;
