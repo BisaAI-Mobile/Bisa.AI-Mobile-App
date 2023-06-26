@@ -2,7 +2,7 @@
 // https://aboutreact.com/react-native-tab/
 import SelectDropdown from "react-native-select-dropdown";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -13,36 +13,13 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import LearnCard from "./MyLearnCard";
-const reccourse = [
-  {
-    uri: require("../../../assets/images/course.png"),
-    nama: "Data Science",
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../../../assets/images/course.png"),
-    nama: "Data Science",
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../../../assets/images/course.png"),
-    nama: "Data Science",
-    stars: "5,0",
-    silabus: "6",
-  },
-  {
-    uri: require("../../../assets/images/course.png"),
-    nama: "Data Science",
-    stars: "5,0",
-    silabus: "6",
-  },
-];
+import { AuthContext } from "../../auth/Authcontext";
+
 const linkurl='https://gate.bisaai.id/elearning2/learning_path/media/'
 const countries = ["Egypt", "Canada", "Australia", "Ireland"];
 const MyLearningPath = () => {
   const [data, setData] = useState([]);
+  const {userInfo} = useContext(AuthContext);
   // const {userInfo} = useContext(AuthContext);
   const url =
     "https://gate.bisaai.id/elearning2/customer_learning_path/get_customer_learning_path";
@@ -51,7 +28,7 @@ const MyLearningPath = () => {
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append(
       "Authorization",
-      `JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eSI6IjEyMzg4IzQiLCJpYXQiOjE2ODUwMDgwNjYsIm5iZiI6MTY4NTAwODA2NiwiZXhwIjoxNjg3NjAwMDY2fQ.1G3ccMMUlIOXYx6AmG8DoHlhqTMud67Hx7whD4GFsTc`
+      `JWT ${userInfo.access_token}`
     );
     // myHeaders.append("status", "1");
 
@@ -110,7 +87,7 @@ const MyLearningPath = () => {
               color: "black",
             }}
           >
-            Total {data.length} Kelas
+            {/* Total {data.length} Kelas */}
           </Text>
           <View>
             <SelectDropdown

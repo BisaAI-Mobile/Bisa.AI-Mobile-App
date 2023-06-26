@@ -25,6 +25,7 @@ import CourseCard from "../../components/CourseCard";
 import CourseTab from "../../screens/detail_course";
 import Info from "../../screens/componen/info";
 import CourseMyLearningPath from "../screen/CourseMyLearningPath";
+import QuizPage from "../screen/QuizCourse";
 // import { useRoute } from '@react-navigation/native';
 // const state = useNavigationState(state => state);
 // const routeName = (state.routeNames[state.index]);
@@ -149,6 +150,7 @@ export function FreeCourseTab() {
           <Stack.Screen name="tabcourse" component={CourseTab}/>
           <Stack.Screen name="info" component={Info}/>
           <Stack.Screen name="sil" component={SilabusPage} />
+          <Stack.Screen name="quiz" component={QuizPage} />
         </Stack.Navigator>
       </NavigationContainer>
     </View>

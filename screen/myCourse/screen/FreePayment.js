@@ -20,7 +20,7 @@ import PaymentDetail from "./paymentPage/PaymentDetail";
 import { AuthContext } from "../../auth/Authcontext";
 import { useContext } from "react";
 import Harga from "./paymentPage/Price";
-
+import { Rating } from "react-native-stock-star-rating";
 const Bayarind = [
   {
     id: 1,
@@ -117,7 +117,7 @@ export default function PaymentFree({route}) {
       myHeaders.append("Authorization", `JWT ${userInfo.access_token}`);
 
       var raw = JSON.stringify({
-        id_course: "261",
+        id_course: `${data.id_course}`,
       });
       var requestOptions = {
         method: "POST",
@@ -176,50 +176,42 @@ export default function PaymentFree({route}) {
         <Pressable onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back-outline" size={32} color="black" />
         </Pressable>
+
         <Image
           source={require("../../../assets/images/logo.png")}
           style={{ height: 52, width: 50 }}
         />
-        <Ionicons name="person-outline" size={32} color="black" />
+
+        <Pressable onPress={() => navigation.navigate("Profile")}>
+          <Ionicons name="person-outline" size={32} color="black" />
+        </Pressable>
       </View>
       <ScrollView>
-        <View style={{ paddingHorizontal: 15 }}>
+        <View style={{ paddingHorizontal: 15, gap: 10 }}>
           <View style={{ paddingHorizontal: 17 }}>
             <View style={styles.container}>
               <Image
-                source={{uri:`${linkurl}${data.photo}`}}
+                source={{ uri: `${linkurl}${data.photo}` }}
                 style={{ height: 170, width: 170 }}
               />
               <Text style={styles.text}>{data.name}</Text>
-              <View style={{ flexDirection: "row" }}>
-                <Image
-                  source={require("../../../assets/images/bintang.png")}
-                ></Image>
-                <Image
-                  source={require("../../../assets/images/bintang.png")}
-                ></Image>
-                <Image
-                  source={require("../../../assets/images/bintang.png")}
-                ></Image>
-                <Image
-                  source={require("../../../assets/images/bintang.png")}
-                ></Image>
-                <Image
-                  source={require("../../../assets/images/bintang.png")}
-                ></Image>
-              </View>
+              <Rating stars={data.rating} maxStars={5} size={17} />
               <View style={{ flexDirection: "column", gap: 5, padding: 4 }}>
                 <View style={{ flexDirection: "row", gap: 3 }}>
                   <Image
                     source={require("../../../assets/images/Population.png")}
                   />
-                  <Text style={styles.text2}>Jumlah Peserta : {data.number_of_students}</Text>
+                  <Text style={styles.text2}>
+                    Jumlah Peserta : {data.number_of_students}
+                  </Text>
                 </View>
                 <View style={{ flexDirection: "row", gap: 3 }}>
                   <Image
                     source={require("../../../assets/images/TotalModul.png")}
                   />
-                  <Text style={styles.text2}>Total Modul : {data.number_of_syllabus}</Text>
+                  <Text style={styles.text2}>
+                    Total Modul : {data.number_of_syllabus}
+                  </Text>
                 </View>
               </View>
             </View>
@@ -247,7 +239,7 @@ export default function PaymentFree({route}) {
               <View
                 style={{
                   width: "100%",
-                  height: 130,
+                  // height: 200,
                   //   backgroundColor: "#f8f8ff",
                   flexDirection: "column",
                   justifyContent: "center",
@@ -257,7 +249,7 @@ export default function PaymentFree({route}) {
                   style={{
                     flex: 1,
                     flexDirection: "row",
-                    padding: 13,
+                    // padding: 13,
                     justifyContent: "space-around",
                     alignItems: "center",
                   }}
@@ -266,27 +258,38 @@ export default function PaymentFree({route}) {
                     style={{
                       flex: 1,
                       flexDirection: "column",
-                      padding: 13,
+                      // padding: 13,
                       justifyContent: "space-around",
-                      height: 130,
+                      height: 65,
                     }}
                   >
                     <TouchableOpacity
-                      style={styles.buttonShadow}
-                      onPress={() => bayar()}
+                      // style={styles.buttonShadow}
+                      style={{
+                        alignItems: "center",
+                        // justifyContent: "center",
+                        // alignContent: "center",
+                      }}
+                      // onPress={() => bayar()}
+                      onPress={() => {
+                        // navigation.navigate("sil");
+                        AddCourse();
+                      }}
                     >
                       <View
                         style={{
                           backgroundColor: "rgb(0, 74, 173)",
-                          borderRadius: 25,
-                          overflow: "hidden",
-                          width:100,
-                          gap: 7,
+                          borderRadius: 15,
+                          // overflow: "hidden",
+                          width: "50%",
+                          // gap: 7,
                           height: 40,
-                          padding: 9,
-                          flexDirection: "row",
+                          padding: 10,
+                          // flexDirection: "row",
                           alignItems: "center",
-                          justifyContent:'center'
+                          // justifyContent:'center',
+                          // alignContent:"center"
+
                           // justifyContent:'center'
                         }}
                       >
@@ -297,47 +300,37 @@ export default function PaymentFree({route}) {
                         <Text style={styles.textButton}>Daftar Gratis</Text>
                       </View>
                     </TouchableOpacity>
-                    
                   </View>
                 </View>
               </View>
             </View>
           </View>
-          <View style={{ paddingHorizontal: 19, gap: 5 }}>
-            <View style={styles.textShadow}>
-              <Text style={styles.text3}>Keterangan Transfer</Text>
-              <Text
-                style={{
-                  textAlign: "justify",
-                  letterSpacing: 0.4,
-                  lineHeight: 20,
-                }}
-              >
-                Anda akan terdaftar pada course Master Class Data Science,
-                silahkan lakukan pembayaran dengan nominal Rp 150,590 melalui
-                Bayarind
-              </Text>
-            </View>
-            <View style={styles.textShadow}>
+          <View
+            style={{
+              paddingHorizontal: 19,
+              gap: 10,
+            }}
+          >
+            {/* <View style={styles.textShadow}>
               <Text style={styles.text3}>Cara Pembayaran</Text>
               <Text
-                style={{
-                  textAlign: "justify",
+                style={{ */}
+            {/* textAlign: "justify",
                   // letterSpacing: 0.4,
                   // lineHeight: 20,
                 }}
-              >
-                {payment.map((item) => (
+              > */}
+            {/* {payment.map((item) => (
                   <Item cara={item.cara} />
-                ))}
-                {/* <FlatList
+                ))} */}
+            {/* <FlatList
                   data={payment}
                   renderItem={({ item }) => <Item cara={item.cara} />}
                   keyExtractor={(item) => item.id}
                 /> */}
-              </Text>
-            </View>
-            <View style={styles.textShadow}>
+            {/* </Text>
+            </View> */}
+            {/* <View style={styles.textShadow}>
               <Text style={styles.text3}>Pakai Voucher</Text>
               <TextInput
                 style={styles.input}
@@ -346,40 +339,129 @@ export default function PaymentFree({route}) {
                 placeholder="Masukkan Voucher"
                 // keyboardType="numeric"
               />
-            </View>
-            <Harga price="150.000" code="440" />
-            <View style={styles.textShadow}>
-              <Text style={styles.text3}>Cara Pembayaran</Text>
-              <Text
-                style={{
-                  textAlign: "justify",
-                  letterSpacing: 0.4,
-                  lineHeight: 20,
-                }}
+            </View> */}
+            <Harga price="0" code="0" />
+            <View style={styles.textShadow1}>
+              <Text style={styles.text3}>Info</Text>
+              {/* <View
+                style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
               >
-                - Pilih pembayaran menggunakan Bayarind - Klik tombil Pilih
-                Pembayaran Masukkan nomor telepon yang berhubungan dengan
-                akunbayarind anda - Cek kembali total biaya dan lakukan
-                pembayaran
-              </Text>
+                <Image
+                  style={{ height: 15, width: 15 }}
+                  source={require("../../../assets/images/info1.png")}
+                />
+                <Text
+                  style={{
+                    textAlign: "justify",
+                    letterSpacing: 0.4,
+                    lineHeight: 20,
+                  }}
+                >
+                  Jumlah Course :
+                </Text>
+              </View> */}
+              <View
+                style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
+              >
+                <Image
+                  style={{ height: 15, width: 15 }}
+                  source={require("../../../assets/images/info2.png")}
+                />
+                <Text
+                  style={{
+                    textAlign: "justify",
+                    letterSpacing: 0.4,
+                    lineHeight: 20,
+                  }}
+                >
+                  Jumlah Silabus : {data.number_of_syllabus}
+                </Text>
+              </View>
+              <View
+                style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
+              >
+                <Image
+                  style={{ height: 15, width: 15 }}
+                  source={require("../../../assets/images/info3.png")}
+                />
+                {data.class === 1 ? (
+                  <Text
+                    style={{
+                      textAlign: "justify",
+                      letterSpacing: 0.4,
+                      lineHeight: 20,
+                    }}
+                  >
+                    Kelas : Pemula
+                  </Text>
+                ) : (
+                  <Text
+                    style={{
+                      textAlign: "justify",
+                      letterSpacing: 0.4,
+                      lineHeight: 20,
+                    }}
+                  >
+                    Kelas : Menengah
+                  </Text>
+                )}
+                {/* <Text
+                  style={{
+                    textAlign: "justify",
+                    letterSpacing: 0.4,
+                    lineHeight: 20,
+                  }}
+                >
+
+                  Kelas : {data.class}
+                </Text> */}
+              </View>
             </View>
+          </View>
+          <View style={styles.textShadow}>
+            <Text style={{ color: "yellow", fontSize: 20 }}>Penting!</Text>
+            <Text
+              style={{
+                textAlign: "justify",
+                letterSpacing: 0.4,
+                lineHeight: 20,
+              }}
+            >
+              konfirmasi pembayaran dilakukan secara otomatis oleh sistem
+              kami,jika transaksi tidak sesuai, silahkan konfirmasi pembayaran
+              anda secara manual
+            </Text>
+            <TouchableOpacity
+              style={{
+                borderRadius: 5,
+                backgroundColor: "rgb(32, 169,20)",
+                width: "50%",
+                alignItems: "center",
+                elevation: 3,
+                height: 35,
+                justifyContent: "center",
+              }}
+              onPress={() => navigation.navigate("home")}
+            >
+              <Text>Kembali ke beranda</Text>
+            </TouchableOpacity>
           </View>
           {/* <Bayarind /> */}
         </View>
       </ScrollView>
-      <View
+      {/* <View
         style={{
           height: 65,
           backgroundColor: "white",
           alignItems: "center",
           borderTopColor: "grey",
-        }}
-      >
-        <Pressable
+        }} */}
+      {/* > */}
+      {/* <Pressable
           style={{ paddingTop: 10 }}
           onPress={() => {
             // navigation.navigate("sil");
-            AddCourse()
+            AddCourse();
           }}
         >
           <View
@@ -404,8 +486,8 @@ export default function PaymentFree({route}) {
               Bayar
             </Text>
           </View>
-        </Pressable>
-      </View>
+        </Pressable> */}
+      {/* </View> */}
     </View>
   );
 }
@@ -425,16 +507,18 @@ const styles = StyleSheet.create({
     letterSpacing: 0.25,
     color: "black",
   },
-  textShadow: {
+  textShadow1: {
+    gap: 10,
     borderRadius: 8,
     backgroundColor: "white",
     padding: 15,
+    // paddingBottom: 10,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 1,
     },
-    height: 200,
+    height: 150,
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
     elevation: 3,
@@ -449,7 +533,8 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: "rgb(39, 50, 70)",
-    height: 270,
+    // height: 270,
+    paddingBottom:30,
     flexDirection: "column",
     alignItems: "center",
     borderRadius: 20,
@@ -527,8 +612,13 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   textShadow: {
+    gap: 8,
+    width: "100%",
+    // justifyContent: "center",
+    // alignContent: "center",
+    alignItems: "center",
     borderRadius: 8,
-    backgroundColor: "white",
+    backgroundColor: "rgb(218,218,218)",
     padding: 15,
     shadowColor: "#000",
     shadowOffset: {

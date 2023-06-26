@@ -51,6 +51,7 @@ import MasterOJT from "./screen/MasterClassOjt";
 import LearningPathDetail from "./screen/myCourse/screen/LearningDetail";
 import LearnDetail from "./screen/myCourse/screen/LearningDetail";
 import PaymentFree from "./screen/myCourse/screen/FreePayment";
+import QuizPage from "./screen/myCourse/screen/QuizCourse";
 // import TabCourse from "./screen/myCourse/screen/detail_course";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -103,7 +104,8 @@ export function HomeStack() {
       <Stack.Screen name="myMaster" component={MyMasterClass} />
       <Stack.Screen name="myLearn" component={MyLearningPath} />
       <Stack.Screen name="freepay" component={PaymentFree} />
-      {/* <Stack.Screen name="myAcad" component={TopNavbar} /> */}
+      {/* <Stack.Screen name="freepay" component={PaymentFree} /> */}
+      {/* <Stack.Screen name="quiz" component={QuizPage} /> */}
       {/* <Stack.Screen name="TopNavbar" component={TopNavbar} /> */}
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Editprofile" component={Editprofile} />

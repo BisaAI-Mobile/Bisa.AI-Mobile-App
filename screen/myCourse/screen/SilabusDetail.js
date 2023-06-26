@@ -20,8 +20,7 @@ import React, { useState, useCallback, useRef } from "react";
 import { DetailContext } from "../../screens/detail_course";
 import { useContext } from "react";
 
-
-export default function SilabusPage({route}) {
+export default function SilabusPage({ route }) {
   const navigation = useNavigation();
   // const {datacourse} = useContext(DetailContext);
   const [playing, setPlaying] = useState(false);
@@ -57,10 +56,13 @@ export default function SilabusPage({route}) {
         {/* <View>
         </View> */}
         <View style={styles.containertext}>
-          <View style={{flexDirection:'row', backgroundColor:'black', }}>
-          <Pressable style={{paddingTop:50, paddingBottom:20}} onPress={() => navigation.goBack()}>
-            <Ionicons name="arrow-back-outline" size={32} color="white" />
-          </Pressable>
+          <View style={{ flexDirection: "row", backgroundColor: "black" }}>
+            <Pressable
+              style={{ paddingTop: 50, paddingBottom: 20 }}
+              onPress={() => navigation.goBack()}
+            >
+              <Ionicons name="arrow-back-outline" size={32} color="white" />
+            </Pressable>
           </View>
           {/* <View
             style={{
@@ -72,7 +74,7 @@ export default function SilabusPage({route}) {
               paddingHorizontal: 20,
             }}
           ></View> */}
-          <View style={{ height: 200, justifyContent:'center' }}>
+          <View style={{ height: 200, justifyContent: "center" }}>
             <YoutubePlayer
               height={230}
               play={playing}
@@ -90,9 +92,7 @@ export default function SilabusPage({route}) {
                   paddingBottom: 6,
                 }}
               >
-                <Text style={styles.text3}>
-                  {data.name}
-                </Text>
+                <Text style={styles.text3}>{data.name}</Text>
               </View>
               <View
                 style={{
@@ -106,7 +106,13 @@ export default function SilabusPage({route}) {
               >
                 <Text style={styles.text3}>Dasar Teori</Text>
               </View>
-              <View style={{ paddingHorizontal: 20, paddingTop: 20, paddingBottom:20 }}>
+              <View
+                style={{
+                  paddingHorizontal: 20,
+                  paddingTop: 20,
+                  paddingBottom: 20,
+                }}
+              >
                 <Text style={styles.text3}>Data Science</Text>
                 <Text
                   style={{
@@ -136,11 +142,24 @@ export default function SilabusPage({route}) {
                   sangat dibutuhkan dalam profesi data analyst, business
                   analyst, dan sebagainya.
                 </Text>
-                <TouchableOpacity>
-                  <View style={{width:'100%', height:40, justifyContent:'center', alignItems:'center', backgroundColor:'rgb(132, 207, 240)', borderRadius:20}}>
-                    <Text>
-                      QUIZ
-                    </Text>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("quiz", {
+                      data: data,
+                    })
+                  }
+                >
+                  <View
+                    style={{
+                      width: "100%",
+                      height: 40,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "rgb(132, 207, 240)",
+                      borderRadius: 20,
+                    }}
+                  >
+                    <Text>QUIZ</Text>
                   </View>
                 </TouchableOpacity>
               </View>

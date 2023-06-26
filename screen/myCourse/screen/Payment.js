@@ -117,7 +117,7 @@ export default function PaymentPage({route}) {
       myHeaders.append("Authorization", `JWT ${userInfo.access_token}`);
 
       var raw = JSON.stringify({
-        id_course: "261",
+        id_course: '373',
       });
       var requestOptions = {
         method: "POST",

@@ -310,7 +310,7 @@ const Editprofile = ({ route }) => {
                   style={styles.loginBtn}
                   onPress={() => {
                     UpdateProfile();
-                    // navigation.navigate("TopNavbar");
+                    navigation.goBack()
                     // console.log
                   }}
                 >

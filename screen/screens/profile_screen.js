@@ -158,6 +158,7 @@ const Profile = () => {
                       <Text style={styles.textpaddingHC}>{datProf.address}</Text>
                     </View>
                     <View style={styles.textHardcod}>
+                      
                       <Image
                         style={styles.imageStyle}
                         source={require("../assets/images/rkerja.png")}
