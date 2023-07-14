@@ -71,7 +71,7 @@ export default function FreeCourse() {
   // }
   // const test='react'
   const url =
-    "https://gate.bisaai.id/elearning2/course/get_course?is_aktif=1&is_free=1&order_by_number_of_student=desc&q=";
+    "https://gate.bisaai.id/elearning2/course/get_course?is_limit=10&is_aktif=1&is_free=1&order_by_number_of_student=desc&q=";
 
   useEffect(() => {
     var myHeaders = new Headers();

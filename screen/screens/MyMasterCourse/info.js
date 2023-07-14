@@ -4,12 +4,12 @@ import RenderHtml from "react-native-render-html";
 import MyCard, { IdContext } from "../../myCourse/screen/FreeCard";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../auth/Authcontext";
-import { DetailContext } from "../detail_course";
-export default function Info({route}) {
+import { MasterDetailContext } from "./masterDetail_course";
+export default function Info2({route}) {
   // const [data, setData] = useState([]);
   // const { datas } = route.params;
   // const {userInfo} = useContext(AuthContext);
-  const {data} = useContext(DetailContext);
+  const {data} = useContext(MasterDetailContext);
   const url =
   "https://gate.bisaai.id/elearning2/academy/get_customer_course";
 //   useEffect(() => {

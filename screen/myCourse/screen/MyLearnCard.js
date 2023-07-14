@@ -7,7 +7,7 @@ import {
     Pressable,
   } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import CourseTab from "../../screens/detail_course";
+import CourseTab from "../../screens/MyFreeCourse/detail_course";
 import { useState, useContext, useEffect, createContext } from "react";
 import { Button } from "react-native-elements";
 import { Rating } from "react-native-stock-star-rating";

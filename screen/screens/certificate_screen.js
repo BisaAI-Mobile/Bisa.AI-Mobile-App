@@ -7,12 +7,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Text, View, Dimensions, Image, StyleSheet } from "react-native";
 
-import Info from "./componen/info";
-import Silabus from "./componen/silabus";
-import Tugas from "./componen/tugas";
-import Diskusi from "./componen/diskusi";
-import Description from "./componen/description";
-import Course from "./componen/courses";
+import Info from "./MyFreeCourse/info";
+import Silabus from "./MyFreeCourse/silabus";
+import Tugas from "./MyFreeCourse/tugas";
+import Diskusi from "./MyFreeCourse/diskusi";
+import Description from "./MyFreeCourse/description";
+import Course from "./MyFreeCourse/courses";
 import RenderHtml from "react-native-render-html";
 import { createContext } from "react";
 // import Diskusi from "./componen/diskusi";

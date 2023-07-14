@@ -147,7 +147,7 @@ const countries = ["Egypt", "Canada", "Australia", "Ireland"];
           </View>
         </View>
 
-        <View
+        {/* <View
           style={{
             flexDirection: "column",
             justifyContent: "space-between",
@@ -156,17 +156,38 @@ const countries = ["Egypt", "Canada", "Australia", "Ireland"];
             padding: 10,
             backgroundColor: "#f8f8ff",
           }}
-        >
-          
-          {data.map((course , index) => {
-            return (course.length>=0?
-            (<MyCard kelas={course} screenName={'Tabcourse'} key={index}/>)
+        > */}
+          {data.length>=0?
+          <View
+          style={{
+            flexDirection: "column",
+            justifyContent: "space-between",
+            gap: 16,
+            alignItems: "center",
+            padding: 10,
+            backgroundColor: "#f8f8ff",
+          }}
+          >
+            {data.map((course , index) => {
+              return <MyCard kelas={course} screenName={'masterTab'} key={index}/>
+            })}
+          </View>
             :
+            <View
+          style={{
+            flexDirection: "column",
+            justifyContent: "space-between",
+            gap: 16,
+            alignItems: "center",
+            padding: 10,
+            backgroundColor: "#f8f8ff",
+          }}
+          >
             (<View style={{backgroundColor:'red', height:100}}>
-              <Text>Belum memilih kelas</Text>
-            </View>))
-          })}
-        </View>
+                <Text>Belum memilih kelas</Text>
+              </View>)
+          </View>
+        }
       </ScrollView>
     </View>
   );

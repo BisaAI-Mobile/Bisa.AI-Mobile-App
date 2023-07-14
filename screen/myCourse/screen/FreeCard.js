@@ -7,7 +7,7 @@ import {
     Pressable,
   } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import CourseTab from "../../screens/detail_course";
+import CourseTab from "../../screens/MyFreeCourse/detail_course";
 import { useState, useContext, useEffect, createContext } from "react";
 import { Button } from "react-native-elements";
 import { Rating } from "react-native-stock-star-rating";
@@ -35,7 +35,7 @@ const MyCard = ({ kelas, screenName, children }) => {
     <Pressable onPress={() =>{
         // setid(kelas.id_course)
         // console.log(id)
-        navigation.navigate('detailTab', {
+        navigation.navigate(screenName, {
           // screen: 'Silabus',
           // params:{
             data:kelas

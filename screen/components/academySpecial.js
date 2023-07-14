@@ -1,7 +1,8 @@
-import { View, Text, Image, StyleSheet } from "react-native";
-
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
+import { Linking } from 'react-native';
 const AcademySpecial = ({ special, he, we }) => {
     return(
+        <Pressable onPress={() => Linking.openURL(special.link)}>
         <View style={styles.buttonShadow}>
             <View style={{backgroundColor:'white', width:290, height:120, padding:7, flexDirection:'row', paddingTop:20, borderRadius: 10}}>
                 <Image source={(special.uri)} style={{width:80, height:80, resizeMode: 'contain'}}/>
@@ -11,6 +12,7 @@ const AcademySpecial = ({ special, he, we }) => {
                 </View>
             </View>
         </View>
+        </Pressable>
     )
 }
 const styles = StyleSheet.create({

@@ -17,7 +17,7 @@ import { DetailButton } from "../../components/CourseCard";
 import { useNavigation } from "@react-navigation/native";
 import YoutubePlayer from "react-native-youtube-iframe";
 import React, { useState, useCallback, useRef } from "react";
-import { DetailContext } from "../../screens/detail_course";
+import { DetailContext } from "../../screens/MyFreeCourse/detail_course";
 import { useContext } from "react";
 
 export default function SilabusPage({ route }) {

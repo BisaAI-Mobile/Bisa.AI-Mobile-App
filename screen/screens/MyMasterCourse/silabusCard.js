@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Text, View, StyleSheet, ScrollView, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-const SilabusCard = ({ kelas, screenName }) => {
+const SilabusCard2 = ({ kelas, screenName }) => {
   const navigation = useNavigation();
   return (
     <Pressable
@@ -12,6 +12,39 @@ const SilabusCard = ({ kelas, screenName }) => {
       }
     >
       <View style={styles.buttonShadow}>
+        {kelas.score>=75?
+        <View
+          style={{
+            backgroundColor: "#98fb98",
+            // width: 350,
+            // paddingHorizontal: 20,
+            padding: 20,
+            paddingBottom: 50,
+            justifyContent: "flex-start",
+            flexDirection: "column",
+            // paddingTop: 20,
+            borderRadius: 10,
+          }}
+        >
+          <View
+          // style={{
+          //   flexDirection: "column",
+          //   justifyContent: "center",
+          //   // paddingLeft: 7,
+          //   // gap: 5,
+          //   // paddingTop: 4,
+          // }}
+          >
+            <Text style={styles.text}>{kelas.name}</Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{}}>Score Task:{kelas.score}</Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              {/* <Text style={{ fontWeight: "400" }}>Score Task: {kelas.score}</Text> */}
+            </View>
+          </View>
+        </View>
+        :
         <View
           style={{
             backgroundColor: "white",
@@ -36,13 +69,14 @@ const SilabusCard = ({ kelas, screenName }) => {
           >
             <Text style={styles.text}>{kelas.name}</Text>
             <View style={{ flexDirection: "row" }}>
-              <Text style={{}}>Score Task:{kelas.score_task}</Text>
+              <Text style={{}}>Score Task:{kelas.score}</Text>
             </View>
             <View style={{ flexDirection: "row" }}>
               {/* <Text style={{ fontWeight: "400" }}>Score Task: {kelas.score}</Text> */}
             </View>
           </View>
         </View>
+        }
       </View>
     </Pressable>
   );
@@ -91,4 +125,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SilabusCard;
+export default SilabusCard2;

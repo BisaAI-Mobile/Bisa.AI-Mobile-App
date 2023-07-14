@@ -2,9 +2,10 @@ import * as React from "react";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
 import MyCard, { IdContext } from "../../myCourse/screen/FreeCard";
 import SilabusCard from "./silabusCard";
-import { DetailContext } from "../detail_course";
+import { MasterDetailContext } from "./masterDetail_course";
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../auth/Authcontext";
+import SilabusCard2 from "./silabusCard";
 // import SilabusCard from "./silabusCard";
 const reccourse = [
   {
@@ -32,11 +33,11 @@ const reccourse = [
     score: 0,
   },
 ];
-export default function Silabus({ route }) {
+export default function Silabus2({ route }) {
   const [dataSil, setDataSil] = useState([]);
   // const { data } = route.params;
   const { userInfo } = useContext(AuthContext);
-  const {data} = useContext(DetailContext);
+  const {data} = useContext(MasterDetailContext);
   // const { courseid } = useContext(IdContext);
   // const {id} = useContext(IdContext);
   const url = `https://gate.bisaai.id/elearning2/academy/get_customer_syllabus?id_customer_course=${data.id_customer_course}&is_list=2&is_limit=111`;
@@ -90,7 +91,7 @@ export default function Silabus({ route }) {
         }}
       >
         {dataSil.map((course, i) => {
-          return <SilabusCard kelas={course} key={i}/>;
+          return <SilabusCard2 kelas={course} key={i}/>;
         })}
       </View>
     </ScrollView>

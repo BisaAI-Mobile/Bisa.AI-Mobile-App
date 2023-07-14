@@ -19,13 +19,11 @@ const MyFreeCourse = () => {
   const [data, setData] = useState([]);
   const {userInfo} = useContext(AuthContext);
   const url =
-    "https://gate.bisaai.id/elearning2/academy/get_customer_course";
+    "https://gate.bisaai.id/elearning2/academy/get_customer_course?is_free=0&is_limit=408";
 useEffect(() => {
   var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 myHeaders.append("Authorization", `JWT ${userInfo.access_token}`);
-myHeaders.append("is_free", "0");
-// myHeaders.append("status", "1");
 
 var requestOptions = {
   method: 'GET',
@@ -131,7 +129,7 @@ const countries = ["Egypt", "Canada", "Australia", "Ireland"];
           }}
         >
           {data.map((course , index) => {
-            return <MyCard kelas={course} screenName={'Tabcourse'} key={index}/>
+            return <MyCard kelas={course} screenName={'detailTab'} key={index}/>
           })}
         </View>
       </ScrollView>

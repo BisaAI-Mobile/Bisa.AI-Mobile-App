@@ -37,12 +37,12 @@ import Signup from "./screen/screens/signup_screen";
 import Profile from "./screen/screens/profile_screen";
 import Editprofile from "./screen/screens/eprofile_screen";
 // import TabCourse from "./screen/screens/detail_course";
-import CourseTab, { TabDetail } from "./screen/screens/detail_course";
+import CourseTab, { TabDetail } from "./screen/screens/MyFreeCourse/detail_course";
 import MasterCard from "./screen/components/MasterCard";
 import NavbarSertif from "./screen/TabSertif";
 import MasterDetail from "./screen/myCourse/screen/MasterDetail";
 import { AuthProvider } from "./screen/auth/Authcontext";
-import Info from "./screen/screens/componen/info";
+import Info from "./screen/screens/MyFreeCourse/info";
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
@@ -52,34 +52,51 @@ import LearningPathDetail from "./screen/myCourse/screen/LearningDetail";
 import LearnDetail from "./screen/myCourse/screen/LearningDetail";
 import PaymentFree from "./screen/myCourse/screen/FreePayment";
 import QuizPage from "./screen/myCourse/screen/QuizCourse";
+import { AuthContext } from "./screen/auth/Authcontext";
+import { useContext } from "react";
 // import TabCourse from "./screen/myCourse/screen/detail_course";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 export default function App() {
+  // const {userInfo, splashLoading} = useContext(AuthContext);
   return (
     <AuthProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Onboarding"
-          screenOptions={{ headerShown: false }}
-        >
-          <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Signup" component={Signup} />
-          <Stack.Screen name="BottomStack" component={TabNavigator} />
-          {/* <TabNavigator /> */}
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Navigation/>
     </AuthProvider>
   );
 }
+const Navigation = () => {
+  const {userInfo, splashLoading} = useContext(AuthContext);
+  return (
+    <NavigationContainer>
+        <Stack.Navigator
+          // initialRouteName="Onboarding"
+          screenOptions={{ headerShown: false }}
+        >
+          {/* <Stack.Screen name="Login" component={Login} /> */}
+          {userInfo.access_token ? (
+            <Stack.Screen name="BottomStack" component={TabNavigator} />
+            ) : (
+              <>
+          <Stack.Screen name="Onboarding" component={OnboardingScreen} screenOptions={{ headerShown: false }}/>
+          <Stack.Screen name="Signup" component={Signup} />
+          <Stack.Screen name="Login" component={Login} />
+              </>
+        )}
+          {/* <Stack.Screen name="BottomStack" component={TabNavigator} /> */}
+          {/* <TabNavigator /> */}
+        </Stack.Navigator>
+      </NavigationContainer>
+  );
+};
 export function HomeStack() {
   return (
     <Stack.Navigator
-      initialRouteName="Login"
-      screenOptions={{
-        headerShown: false,
-      }}
+      // initialRouteName="Login"
+      screenOptions={{ headerShown: false }}
+      // screenOptions={{
+      //   headerShown: false,
+      // }}
     >
       <Stack.Screen name="home" component={HomeScreen} />
       <Stack.Screen

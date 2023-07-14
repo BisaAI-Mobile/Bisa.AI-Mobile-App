@@ -12,7 +12,7 @@ import { LinearGradient } from "expo-linear-gradient";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 import MyFreeCourse from "../screen/MyFreeCourse";
-import TabDetail from "../../screens/detail_course";
+import TabDetail from "../../screens/MyFreeCourse/detail_course";
 import MyMasterClass from "../screen/MyLearningPath";
 import MyLearningPath from "../screen/MyMasterClass";
 import SilabusPage from "../screen/SilabusDetail";
@@ -22,10 +22,11 @@ import {
   getActiveRouteState,
 } from "@react-navigation/native";
 import CourseCard from "../../components/CourseCard";
-import CourseTab from "../../screens/detail_course";
-import Info from "../../screens/componen/info";
+import CourseTab from "../../screens/MyFreeCourse/detail_course";
+import Info from "../../screens/MyFreeCourse/info";
 import CourseMyLearningPath from "../screen/CourseMyLearningPath";
 import QuizPage from "../screen/QuizCourse";
+import TabDetailMaster from "../../screens/MyMasterCourse/masterDetail_course";
 // import { useRoute } from '@react-navigation/native';
 // const state = useNavigationState(state => state);
 // const routeName = (state.routeNames[state.index]);
@@ -147,6 +148,7 @@ export function FreeCourseTab() {
           <Stack.Screen name="TabMycourse" component={TabStack}/>
           {/* <Stack.Screen name="MyFreeCourse" component={MyFreeCourse}/> */}
           <Stack.Screen name="detailTab" component={TabDetail}/>
+          <Stack.Screen name="masterTab" component={TabDetailMaster}/>
           <Stack.Screen name="tabcourse" component={CourseTab}/>
           <Stack.Screen name="info" component={Info}/>
           <Stack.Screen name="sil" component={SilabusPage} />

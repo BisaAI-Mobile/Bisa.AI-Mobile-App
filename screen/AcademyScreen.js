@@ -5,9 +5,9 @@ import AcademyClass from "./components/Academy";
 import AcademySpecial from "./components/academySpecial";
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const special =[
-  {uri: require("../assets/images/special1.png"), nama:'Prakerja', desc:'+50 course GRATIS untuk kamu memulai Belajar', w:80,h:40},
-  {uri: require("../assets/images/special2.png"), nama:'Kampus Merdeka', desc:'+50 course GRATIS untuk kamu memulai Belajar',w:80, h:80},
-  {uri: require("../assets/images/special3.png"), nama:'Portofolio', desc:'+50 course GRATIS untuk kamu memulai Belajar', w:80, h:80},
+  {uri: require("../assets/images/special1.png"), nama:'Prakerja', desc:'+50 course GRATIS untuk kamu memulai Belajar', link:'http://google.com'},
+  {uri: require("../assets/images/special2.png"), nama:'Kampus Merdeka', desc:'+50 course GRATIS untuk kamu memulai Belajar',link:'http://google.com'},
+  {uri: require("../assets/images/special3.png"), nama:'Portofolio', desc:'+50 course GRATIS untuk kamu memulai Belajar', link:'https://bisa.ai/portofolio'},
 ]
 const recmaster =[
   {uri: require("../assets/images/FreeCourse.png"), nama:'Free Course', desc:'+50 course GRATIS untuk kamu memulai Belajar', screen:'free'},

@@ -99,7 +99,7 @@ const Item = ({ cara }) => (
     <Text>- {cara}</Text>
   </View>
 );
-export default function PaymentPage({route}) {
+export default function PaymentPage({ route }) {
   const { data } = route.params;
   const { userInfo } = useContext(AuthContext);
   const navigation = useNavigation();
@@ -109,31 +109,7 @@ export default function PaymentPage({route}) {
   const [three, setThree] = useState("white");
   const [four, setFour] = useState("white");
   const [text, onChangeText] = useState("");
-  const linkurl='https://gate.bisaai.id/elearning2/course/media/'
-  function AddCourse() {
-    // useEffect(() => {
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("Authorization", `JWT ${userInfo.access_token}`);
-
-      var raw = JSON.stringify({
-        id_course: '373',
-      });
-      var requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow",
-      };
-      fetch(
-        "https://gate.bisaai.id/elearning2/academy/insert_customer_course",
-        requestOptions
-      )
-        .then((response) => response.json())
-        .then((json) => console.log(json))
-        .catch((error) => console.log("error", error));
-    // });
-  }
+  const linkurl = "https://gate.bisaai.id/elearning2/course/media/";
   function bayar() {
     setPayment(Bayarind);
     setOne("rgb(184, 223, 243)");
@@ -162,6 +138,121 @@ export default function PaymentPage({route}) {
     setThree("white");
     setFour("rgb(184, 223, 243)");
   }
+  function AddBayarind() {
+    // useEffect(() => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", `JWT ${userInfo.access_token}`);
+
+    var raw = JSON.stringify({
+      id_course: `${data.id_course}`,
+      service_code: "1083",
+      kode_unik_sprint: 731,
+    });
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+    fetch(
+      "https://gate.bisaai.id/elearning2/academy/insert_customer_course_paid",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((json) => console.log(json))
+      .catch((error) => console.log("error", error));
+    // });
+  }
+  function AddShopee() {
+    // useEffect(() => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", `JWT ${userInfo.access_token}`);
+    
+    var raw = JSON.stringify({
+      id_course: `${data.id_course}`,
+      service_code: "1085",
+      kode_unik_sprint: 731,
+    });
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+    fetch(
+      "https://gate.bisaai.id/elearning2/academy/insert_customer_course_paid",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((json) => console.log(json))
+      .catch((error) => console.log("error", error));
+    // });
+  }
+  function AddDana() {
+    // useEffect(() => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", `JWT ${userInfo.access_token}`);
+    
+    var raw = JSON.stringify({
+      id_course: `${data.id_course}`,
+      service_code: "1042",
+      kode_unik_sprint: 731,
+    });
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+    fetch(
+      "https://gate.bisaai.id/elearning2/academy/insert_customer_course_paid",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((json) => console.log(json))
+      .catch((error) => console.log("error", error));
+    // });
+  }
+  function AddLinkAja() {
+    // useEffect(() => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", `JWT ${userInfo.access_token}`);
+    
+    var raw = JSON.stringify({
+      id_course: `${data.id_course}`,
+      service_code: "1077",
+      kode_unik_sprint: 731,
+    });
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+    fetch(
+      "https://gate.bisaai.id/elearning2/academy/insert_customer_course_paid",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((json) => console.log(json))
+      .catch((error) => console.log("error", error));
+    // });
+  }
+  const SelectPayment=()=>{
+    if (payment===Bayarind){
+      return AddBayarind()
+    }else if (payment===Shopee){
+      return AddShopee()
+    }else if (payment===Dana){
+      return AddDana()
+    }else if (payment===Linkaja){
+      return AddLinkAja()
+    }
+  }
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -187,7 +278,7 @@ export default function PaymentPage({route}) {
           <View style={{ paddingHorizontal: 17 }}>
             <View style={styles.container}>
               <Image
-                source={{uri:`${linkurl}${data.photo}`}}
+                source={{ uri: `${linkurl}${data.photo}` }}
                 style={{ height: 170, width: 170 }}
               />
               <Text style={styles.text}>{data.name}</Text>
@@ -213,13 +304,17 @@ export default function PaymentPage({route}) {
                   <Image
                     source={require("../../../assets/images/Population.png")}
                   />
-                  <Text style={styles.text2}>Jumlah Peserta : {data.number_of_students}</Text>
+                  <Text style={styles.text2}>
+                    Jumlah Peserta : {data.number_of_students}
+                  </Text>
                 </View>
                 <View style={{ flexDirection: "row", gap: 3 }}>
                   <Image
                     source={require("../../../assets/images/TotalModul.png")}
                   />
-                  <Text style={styles.text2}>Total Modul : {data.number_of_syllabus}</Text>
+                  <Text style={styles.text2}>
+                    Total Modul : {data.number_of_syllabus}
+                  </Text>
                 </View>
               </View>
             </View>
@@ -458,7 +553,7 @@ export default function PaymentPage({route}) {
           style={{ paddingTop: 10 }}
           onPress={() => {
             // navigation.navigate("sil");
-            AddCourse()
+            SelectPayment();
           }}
         >
           <View
@@ -527,8 +622,10 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(217, 217, 217)",
   },
   container: {
-    backgroundColor: "rgb(39, 50, 70)",
-    height: 270,
+    backgroundColor: "rgb(69, 45, 38)",
+    // height: 270,
+    paddingBottom: 30,
+    paddingHorizontal: 10,
     flexDirection: "column",
     alignItems: "center",
     borderRadius: 20,

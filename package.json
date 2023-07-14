@@ -39,6 +39,7 @@
     "react-native-auto-carousel": "^1.0.8",
     "react-native-date-picker": "^4.2.13",
     "react-native-datepicker": "^1.7.2",
+    "react-native-document-picker": "^9.0.1",
     "react-native-fontawesome": "^7.0.0",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-modal-dropdown": "^1.0.2",
@@ -64,7 +65,8 @@
     "react-navigation-tabs": "^2.11.2",
     "react-number-format": "^5.2.2",
     "react-test-renderer": "^18.2.0",
-    "sharingan-rn-modal-dropdown": "^1.4.0"
+    "sharingan-rn-modal-dropdown": "^1.4.0",
+    "expo-document-picker": "~11.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

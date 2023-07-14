@@ -137,7 +137,9 @@ import {
         >
           <Pressable
             style={{ paddingTop: 20 }}
-            onPress={() => navigation.navigate("pay")}
+            onPress={() => navigation.navigate("pay",{
+              data:data
+            })}
           >
             <View
               style={{
